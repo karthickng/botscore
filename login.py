@@ -2,11 +2,11 @@
 
 #! /usr/bin/env python
 
-def login():
-    """ Login function. """
-    
-    print("In login function")
-    pass
+class login:
+    def __init__(self, params):
+        """ Login function. """
+        print("In login function")
+
 
 def loginhelper():
     """ Helper function for Login """
