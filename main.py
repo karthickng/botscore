@@ -8,22 +8,22 @@ import sys
 from TwitterFeatures.TwitterWrapper import TwitterWrapper
 #from login import login, loginhelper
 
-def showUsage():
+def show_usage():
 	""" Print usage help for program. """
 	
 	print("Usage: botscore <userid>\n")
 	sys.exit(0)
 	
-def processUser(userid):
+def process_user(userid):
 	print(userid)
 	TwitterWrapper(userid)
 	pass
 
-def processCmd(args):
+def process_cmd(args):
 	""" Process command line arguments. """
 	
 	if len(args) != 2:
-		showUsage()
+		show_usage()
 		
 	#showusage() call above will quit if expected number of arguments not found
 	#, so no check is made here		
@@ -35,6 +35,6 @@ def processCmd(args):
 
 	
 if __name__ == "__main__":
-		processCmd(sys.argv)
+		process_cmd(sys.argv)
 		#login()
 		#loginhelper()
