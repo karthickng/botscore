@@ -7,7 +7,8 @@ List of BotScore source files
    :maxdepth: 2
 
    mainpy
-   loginpy
+   twitterfeatures
+   errorpy
    
 
 

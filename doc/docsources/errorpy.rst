@@ -1,7 +1,7 @@
 .. BotScore documentation file, created by Karthick N G
 
-Login module
+Error module
 ------------
 
-.. automodule:: login
+.. automodule:: error
    :members:

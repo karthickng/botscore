@@ -5,32 +5,36 @@ Main entry point of the botscore program: handles command line processing.
 #! /usr/bin/env python
 
 import sys
-from TwitterFeatures.TwitterWrapper import TwitterWrapper
+from twitterfeatures.twitterusers import TwitterUsers
+from twitterfeatures.twitterfeatures import TwitterFeatures
 #from login import login, loginhelper
 
-def show_usage():
+def _show_usage():
 	""" Print usage help for program. """
 	
 	print("Usage: botscore <userid>\n")
 	sys.exit(0)
 	
-def process_user(userid):
-	print(userid)
-	TwitterWrapper(userid)
-	pass
-
 def process_cmd(args):
 	""" Process command line arguments. """
 	
 	if len(args) != 2:
-		show_usage()
+		_show_usage()
 		
 	#showusage() call above will quit if expected number of arguments not found
 	#, so no check is made here		
-	t = TwitterWrapper(args)
-	featuresList = t.getFeatures()
-	print(featuresList)
+	t = TwitterUsers(args)
+	for username in ["@RUWT","@jamesmtitus"]:
+		t.add_user(username, 'bot')
 		
+	for username in ["@iasura_","@dww_k", "@ShefVaidya"]:
+		t.add_user(username) # default type='human'
+	
+	print("Test User list programmed:\n" + str(t.get_user_list()) + "\n")
+	
+	t.set_user_list_json("testdata/users.json")
+	print("Test User list JSON:\n" + str(t.get_user_list()) + "\n")
+	
 	return True
 
 	
