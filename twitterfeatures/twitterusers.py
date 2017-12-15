@@ -6,23 +6,33 @@ Twitter users wrapper
 from twitter import Twitter, OAuth
 import logging
 import datetime
-import numpy as np
+#import numpy as np
 from twitterfeatures.userlist import twitter_bots, twitter_humans
 from error import UserTypeError
 import json
+from fileinput import close
 
 class TwitterUsers(object):
     '''
     Twitter users (human and bot) manager class
     '''
     
-    def login(self):
-        """.. todo:: use file or command line input """
-        """.. todo:: exception handling """
-        self.t = Twitter(auth=OAuth("3018287190-tG4K1NW1OAUMKi1IhKsFn41LwBsnSsYfj0GA6vX", "7zivxHb2ckKEnY3TlWojjLr6Rpcxh5ikQyvGdgaJhAlU8", "BXrC55ZUlvmuuGeLnzIqW4nhr", "Tit9mp5hwG9CbDrOMDywTNKghVOzDQ9wqhCAFKGW8LLBt7IXAt"))   #ToDo- Add authorization, error handling
-        pass
+    def login(self, token, token_secret, consumer_key, consumer_secret):
+        ''' Login and initialize the Twitter API object '''
+        self.token = token
+        self.token_secret = token_secret
+        self.consumer_key = consumer_key
+        self.consumer_secret = consumer_secret
+        
+        try:
+            self.t = Twitter(auth=OAuth(token, token_secret, consumer_key, consumer_secret))   #ToDo- Add authorization, error handling
+        except Exception:
+            print('Error logging in to Twitter')
+            print('Ensure valid Twitter credentials. Refer https://apps.twitter.com/')
+            raise
     
     def add_user(self, userid, usertype='human'):
+        ''' Add one user to the Twitter user list '''
         """.. todo:: validate userid, exception handling?"""
         if usertype == 'human':
             twitter_humans.append(userid)
@@ -31,15 +41,33 @@ class TwitterUsers(object):
         else:
             raise UserTypeError
 
-    def set_user_list_json(self, user_list_json_file='users.json'):
-        """.. todo:: implement """
+    def read_user_list_json(self, user_list_json_filename='users.json'):
+        ''' Initialize a new Twitter user list from JSON file '''
         from builtins import str
         try:
-            f= open(user_list_json_file)
+            f= open(user_list_json_filename,'rt')
             user_data = json.load(f)
-            self._parse_json_user_data(user_data)
+            """.. todo:: JSON schema(?) check?"""
+            twitter_humans.clear()
+            twitter_bots.clear()
+            self._append_json_user_data(user_data)
+            f.close()
         except Exception:
-            print("Error reading JSON file:" + str(user_list_json_file))
+            print("Error creating user list from JSON file:" + str(user_list_json_filename))
+            '''.. todo:: try to close file on exception?? '''
+            raise
+        
+    def append_user_list_json(self, user_list_json_filename='users.json'):
+        ''' Append Twitter user list to existing user list from JSON file
+            Use along with write_user_list_json to add new users to merge to existing JSON user file'''
+        try:
+            f= open(user_list_json_filename,'r')
+            user_data = json.load(f)
+            self._append_json_user_data(user_data)
+            f.close()
+        except Exception:
+            print("Error reading JSON file:" + str(user_list_json_filename))
+            '''.. todo:: try to close file on exception?? '''
             raise
         
     def set_human_user_list_csv(self, user_list):
@@ -56,9 +84,16 @@ class TwitterUsers(object):
         return ret_list
         pass
     
-    def get_user_list_json(self):
-        """.. todo:: implement """
-        pass
+    def write_user_list_json(self,user_list_json_filename="userlist.json"):
+        """.. todo:: implement JSON hierarchy """
+        write_list = twitter_humans + twitter_bots
+        try:
+            with open(user_list_json_filename, "xt") as outfile:
+                json.dump(write_list, outfile)
+        except Exception:
+            print("Error reading JSON file:" + str(user_list_json_filename))
+            '''.. todo:: try to close file on exception?? '''
+            raise
     
     def get_human_user_list_csv(self):
         """.. todo:: implement """
@@ -69,71 +104,29 @@ class TwitterUsers(object):
         pass    
        
     def _get_oauth(self):
-        """.. todo:: read from file
-        """
+        oauth_details = []
+        oauth_details.append(self.token)
+        oauth_details.append(self.token_secret)
+        oauth_details.append(self.consumer_key)
+        oauth_details.append(self.consumer_secret)
+        return oauth_details
         
-        __oauth_token = 'STULycatgreF6VTWhvdhzR1CiInb9WtATgRz31tmGxCIr'
-        __oauth_token_secret = '3018287190-djFisoik8d1mRoSRawwpsyOCwq4KUetDzmYknhF'
-        __consumer_key = ''
-        __consumer_secret = ''
-        
-    def _parse_json_user_data(self, user_data):
-        twitter_humans.clear()
+    def _append_json_user_data(self, user_data):
+        """.. todo: handle empty lists case """
         for s in user_data['humanusers']:
             twitter_humans.append(s['name'])
-        twitter_bots.clear()
         for s in user_data['botusers']:
             twitter_bots.append(s['name'])
         
-    def __init__(self, params):
+    def __init__(self, token, token_secret, consumer_key, consumer_secret):
         '''
         Constructor
         '''
-        
-        self.login()
-        from builtins import str
-        previnstant = currinstant = datetime.datetime.strptime("2017-12-13 18:34:00 +0000",'%Y-%m-%d %H:%M:%S +0000')
-        if len(params) > 3:
-            logging.error('Incorrect parameters')
-            exit(0)
-        else:
-            pass
-        """
-            print("Twitter bots stats:\n")
-            for userid in twitter_bots:
-                print("User ID is " + userid)
-                
-                x= self.t.statuses.user_timeline(screen_name=userid )
-                #print('Length of timeline is: '+ str(len(x)))
-                time_between_tweets_sec = []
-                for i in range(len(x)):
-                    #print(ts)
-                    previnstant = currinstant
-                    currinstant = datetime.datetime.strptime(x[i]['created_at'],'%a %b %d %H:%M:%S +0000 %Y')
-                    diffintime = previnstant - currinstant
-                    time_between_tweets_sec.append(diffintime.total_seconds())
-                    
-                mean_intertweet_period = np.mean(time_between_tweets_sec)
-                std_intertweet_period = np.std(time_between_tweets_sec)
-                print("Mean = " + str(mean_intertweet_period) + ", SD = " + str(std_intertweet_period))
-                
-            print("\n\nTwitter humans stats:\n")
-            for userid in twitter_humans:
-                print("User ID is " + userid)
-                t = Twitter(auth=OAuth("3018287190-tG4K1NW1OAUMKi1IhKsFn41LwBsnSsYfj0GA6vX", "7zivxHb2ckKEnY3TlWojjLr6Rpcxh5ikQyvGdgaJhAlU8", "BXrC55ZUlvmuuGeLnzIqW4nhr", "Tit9mp5hwG9CbDrOMDywTNKghVOzDQ9wqhCAFKGW8LLBt7IXAt"))   #ToDo- Add authorization, error handling
-                x= t.statuses.user_timeline(screen_name=userid )
-                #print('Length of timeline is: '+ str(len(x)))
-                time_between_tweets_sec = []
-                for i in range(len(x)):
-                    #print(ts)
-                    previnstant = currinstant
-                    currinstant = datetime.datetime.strptime(x[i]['created_at'],'%a %b %d %H:%M:%S +0000 %Y')
-                    diffintime = previnstant - currinstant
-                    time_between_tweets_sec.append(diffintime.total_seconds())
-                    
-                mean_intertweet_period = np.mean(time_between_tweets_sec)
-                std_intertweet_period = np.std(time_between_tweets_sec)
-                print("Mean = " + str(mean_intertweet_period) + ", SD = " + str(std_intertweet_period))
-                """
-        #print(self.twitterApi.VerifyCredentials())
+        try:
+            self.login(token, token_secret, consumer_key, consumer_secret)
+        except Exception:
+            print("Unable to create a Twitter users object\nError logging in")
+            
+
+#end of file
             

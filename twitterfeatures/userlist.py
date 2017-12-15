@@ -1,5 +1,6 @@
 """ 
-List of positive (bot) and negative (human) users 
+List of positive (bot) and negative (human) users
+-------------------------------------------------
 """
 
 twitter_bots = []
