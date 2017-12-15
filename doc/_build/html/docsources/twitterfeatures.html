@@ -54,21 +54,20 @@
 <dl class="method">
 <dt id="twitterfeatures.twitterusers.TwitterUsers.add_user">
 <code class="descname">add_user</code><span class="sig-paren">(</span><em>userid</em>, <em>usertype='human'</em><span class="sig-paren">)</span><a class="headerlink" href="#twitterfeatures.twitterusers.TwitterUsers.add_user" title="Permalink to this definition">¶</a></dt>
-<dd><div class="admonition-todo admonition" id="index-0">
-<p class="first admonition-title">Todo</p>
-<p class="last">validate userid, exception handling?</p>
-</div>
+<dd><p>Add one user to the Twitter user list</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="twitterfeatures.twitterusers.TwitterUsers.append_user_list_json">
 <code class="descname">append_user_list_json</code><span class="sig-paren">(</span><em>user_list_json_filename='users.json'</em><span class="sig-paren">)</span><a class="headerlink" href="#twitterfeatures.twitterusers.TwitterUsers.append_user_list_json" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Append Twitter user list to existing user list from JSON file
+Use along with write_user_list_json to add new users to merge to existing JSON user file</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="twitterfeatures.twitterusers.TwitterUsers.get_bot_user_list_csv">
 <code class="descname">get_bot_user_list_csv</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#twitterfeatures.twitterusers.TwitterUsers.get_bot_user_list_csv" title="Permalink to this definition">¶</a></dt>
-<dd><div class="admonition-todo admonition" id="index-1">
+<dd><div class="admonition-todo admonition" id="index-0">
 <p class="first admonition-title">Todo</p>
 <p class="last">implement</p>
 </div>
@@ -77,7 +76,7 @@
 <dl class="method">
 <dt id="twitterfeatures.twitterusers.TwitterUsers.get_human_user_list_csv">
 <code class="descname">get_human_user_list_csv</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#twitterfeatures.twitterusers.TwitterUsers.get_human_user_list_csv" title="Permalink to this definition">¶</a></dt>
-<dd><div class="admonition-todo admonition" id="index-2">
+<dd><div class="admonition-todo admonition" id="index-1">
 <p class="first admonition-title">Todo</p>
 <p class="last">implement</p>
 </div>
@@ -91,17 +90,19 @@
 <dl class="method">
 <dt id="twitterfeatures.twitterusers.TwitterUsers.login">
 <code class="descname">login</code><span class="sig-paren">(</span><em>token</em>, <em>token_secret</em>, <em>consumer_key</em>, <em>consumer_secret</em><span class="sig-paren">)</span><a class="headerlink" href="#twitterfeatures.twitterusers.TwitterUsers.login" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Login and initialize the Twitter API object</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="twitterfeatures.twitterusers.TwitterUsers.read_user_list_json">
 <code class="descname">read_user_list_json</code><span class="sig-paren">(</span><em>user_list_json_filename='users.json'</em><span class="sig-paren">)</span><a class="headerlink" href="#twitterfeatures.twitterusers.TwitterUsers.read_user_list_json" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Initialize a new Twitter user list from JSON file</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="twitterfeatures.twitterusers.TwitterUsers.set_bot_user_list_csv">
 <code class="descname">set_bot_user_list_csv</code><span class="sig-paren">(</span><em>user_list</em><span class="sig-paren">)</span><a class="headerlink" href="#twitterfeatures.twitterusers.TwitterUsers.set_bot_user_list_csv" title="Permalink to this definition">¶</a></dt>
-<dd><div class="admonition-todo admonition" id="index-3">
+<dd><div class="admonition-todo admonition" id="index-2">
 <p class="first admonition-title">Todo</p>
 <p class="last">implement</p>
 </div>
@@ -110,7 +111,7 @@
 <dl class="method">
 <dt id="twitterfeatures.twitterusers.TwitterUsers.set_human_user_list_csv">
 <code class="descname">set_human_user_list_csv</code><span class="sig-paren">(</span><em>user_list</em><span class="sig-paren">)</span><a class="headerlink" href="#twitterfeatures.twitterusers.TwitterUsers.set_human_user_list_csv" title="Permalink to this definition">¶</a></dt>
-<dd><div class="admonition-todo admonition" id="index-4">
+<dd><div class="admonition-todo admonition" id="index-3">
 <p class="first admonition-title">Todo</p>
 <p class="last">implement</p>
 </div>
@@ -118,10 +119,10 @@
 
 <dl class="method">
 <dt id="twitterfeatures.twitterusers.TwitterUsers.write_user_list_json">
-<code class="descname">write_user_list_json</code><span class="sig-paren">(</span><em>filename='userlist.json'</em><span class="sig-paren">)</span><a class="headerlink" href="#twitterfeatures.twitterusers.TwitterUsers.write_user_list_json" title="Permalink to this definition">¶</a></dt>
-<dd><div class="admonition-todo admonition" id="index-5">
+<code class="descname">write_user_list_json</code><span class="sig-paren">(</span><em>user_list_json_filename='userlist.json'</em><span class="sig-paren">)</span><a class="headerlink" href="#twitterfeatures.twitterusers.TwitterUsers.write_user_list_json" title="Permalink to this definition">¶</a></dt>
+<dd><div class="admonition-todo admonition" id="index-4">
 <p class="first admonition-title">Todo</p>
-<p class="last">implement</p>
+<p class="last">implement JSON hierarchy</p>
 </div>
 </dd></dl>
 
@@ -138,7 +139,7 @@
 <dl class="method">
 <dt id="twitterfeatures.twitterfeatures.TwitterFeatures.add_master_feature">
 <code class="descname">add_master_feature</code><span class="sig-paren">(</span><em>description_</em>, <em>calc_function</em><span class="sig-paren">)</span><a class="headerlink" href="#twitterfeatures.twitterfeatures.TwitterFeatures.add_master_feature" title="Permalink to this definition">¶</a></dt>
-<dd><div class="admonition-todo admonition" id="index-6">
+<dd><div class="admonition-todo admonition" id="index-5">
 <p class="first admonition-title">Todo</p>
 <p class="last">implement</p>
 </div>
@@ -147,7 +148,7 @@
 <dl class="method">
 <dt id="twitterfeatures.twitterfeatures.TwitterFeatures.get_all_features_description">
 <code class="descname">get_all_features_description</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#twitterfeatures.twitterfeatures.TwitterFeatures.get_all_features_description" title="Permalink to this definition">¶</a></dt>
-<dd><div class="admonition-todo admonition" id="index-7">
+<dd><div class="admonition-todo admonition" id="index-6">
 <p class="first admonition-title">Todo</p>
 <p class="last">implement</p>
 </div>
@@ -156,7 +157,7 @@
 <dl class="method">
 <dt id="twitterfeatures.twitterfeatures.TwitterFeatures.get_feature_description">
 <code class="descname">get_feature_description</code><span class="sig-paren">(</span><em>feature_id</em><span class="sig-paren">)</span><a class="headerlink" href="#twitterfeatures.twitterfeatures.TwitterFeatures.get_feature_description" title="Permalink to this definition">¶</a></dt>
-<dd><div class="admonition-todo admonition" id="index-8">
+<dd><div class="admonition-todo admonition" id="index-7">
 <p class="first admonition-title">Todo</p>
 <p class="last">implement</p>
 </div>
@@ -165,7 +166,7 @@
 <dl class="method">
 <dt id="twitterfeatures.twitterfeatures.TwitterFeatures.get_master_features_list">
 <code class="descname">get_master_features_list</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#twitterfeatures.twitterfeatures.TwitterFeatures.get_master_features_list" title="Permalink to this definition">¶</a></dt>
-<dd><div class="admonition-todo admonition" id="index-9">
+<dd><div class="admonition-todo admonition" id="index-8">
 <p class="first admonition-title">Todo</p>
 <p class="last">implement</p>
 </div>
@@ -174,7 +175,7 @@
 <dl class="method">
 <dt id="twitterfeatures.twitterfeatures.TwitterFeatures.get_selected_features">
 <code class="descname">get_selected_features</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#twitterfeatures.twitterfeatures.TwitterFeatures.get_selected_features" title="Permalink to this definition">¶</a></dt>
-<dd><div class="admonition-todo admonition" id="index-10">
+<dd><div class="admonition-todo admonition" id="index-9">
 <p class="first admonition-title">Todo</p>
 <p class="last">implement</p>
 </div>
@@ -183,7 +184,7 @@
 <dl class="method">
 <dt id="twitterfeatures.twitterfeatures.TwitterFeatures.remove_feature">
 <code class="descname">remove_feature</code><span class="sig-paren">(</span><em>feature_id</em><span class="sig-paren">)</span><a class="headerlink" href="#twitterfeatures.twitterfeatures.TwitterFeatures.remove_feature" title="Permalink to this definition">¶</a></dt>
-<dd><div class="admonition-todo admonition" id="index-11">
+<dd><div class="admonition-todo admonition" id="index-10">
 <p class="first admonition-title">Todo</p>
 <p class="last">implement</p>
 </div>
@@ -192,7 +193,7 @@
 <dl class="method">
 <dt id="twitterfeatures.twitterfeatures.TwitterFeatures.remove_master_feature">
 <code class="descname">remove_master_feature</code><span class="sig-paren">(</span><em>feature_id</em><span class="sig-paren">)</span><a class="headerlink" href="#twitterfeatures.twitterfeatures.TwitterFeatures.remove_master_feature" title="Permalink to this definition">¶</a></dt>
-<dd><div class="admonition-todo admonition" id="index-12">
+<dd><div class="admonition-todo admonition" id="index-11">
 <p class="first admonition-title">Todo</p>
 <p class="last">implement</p>
 </div>
@@ -201,7 +202,7 @@
 <dl class="method">
 <dt id="twitterfeatures.twitterfeatures.TwitterFeatures.select_feature">
 <code class="descname">select_feature</code><span class="sig-paren">(</span><em>feature_id_list=['all']</em><span class="sig-paren">)</span><a class="headerlink" href="#twitterfeatures.twitterfeatures.TwitterFeatures.select_feature" title="Permalink to this definition">¶</a></dt>
-<dd><div class="admonition-todo admonition" id="index-13">
+<dd><div class="admonition-todo admonition" id="index-12">
 <p class="first admonition-title">Todo</p>
 <p class="last">implement</p>
 </div>
