@@ -6,7 +6,7 @@ Twitter users wrapper
 from twitter import Twitter, OAuth
 import logging
 import datetime
-#import numpy as np
+import numpy as np
 from twitterfeatures.userlist import twitter_bots, twitter_humans
 from error import UserTypeError
 import json

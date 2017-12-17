@@ -1,39 +1,38 @@
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>twitterfeatures module &#8212; BotScore 0.1 documentation</title>
+    
+    <title>twitterfeatures module &mdash; BotScore 0.1 documentation</title>
+    
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
         VERSION:     '0.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
+        HAS_SOURCE:  true
       };
     </script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" />
+    <link rel="top" title="BotScore 0.1 documentation" href="../index.html" />
+    <link rel="up" title="List of BotScore source files" href="Sources.html" />
     <link rel="next" title="Error module" href="errorpy.html" />
     <link rel="prev" title="Main module" href="mainpy.html" />
    
-  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
-  
   
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   </head>
-  <body>
-  
+  <body role="document">  
 
     <div class="document">
       <div class="documentwrapper">
@@ -45,90 +44,6 @@
 <p>Created on 14-Dec-2017</p>
 <p>&#64;author: ngk
 &#64;email: <a class="reference external" href="mailto:karthickng&#37;&#52;&#48;gmail&#46;com">karthickng<span>&#64;</span>gmail<span>&#46;</span>com</a></p>
-<span class="target" id="module-twitterfeatures.twitterusers"></span><div class="section" id="twitter-users-wrapper">
-<h2>Twitter users wrapper<a class="headerlink" href="#twitter-users-wrapper" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
-<dt id="twitterfeatures.twitterusers.TwitterUsers">
-<em class="property">class </em><code class="descclassname">twitterfeatures.twitterusers.</code><code class="descname">TwitterUsers</code><span class="sig-paren">(</span><em>token</em>, <em>token_secret</em>, <em>consumer_key</em>, <em>consumer_secret</em><span class="sig-paren">)</span><a class="headerlink" href="#twitterfeatures.twitterusers.TwitterUsers" title="Permalink to this definition">¶</a></dt>
-<dd><p>Twitter users (human and bot) manager class</p>
-<dl class="method">
-<dt id="twitterfeatures.twitterusers.TwitterUsers.add_user">
-<code class="descname">add_user</code><span class="sig-paren">(</span><em>userid</em>, <em>usertype='human'</em><span class="sig-paren">)</span><a class="headerlink" href="#twitterfeatures.twitterusers.TwitterUsers.add_user" title="Permalink to this definition">¶</a></dt>
-<dd><p>Add one user to the Twitter user list</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="twitterfeatures.twitterusers.TwitterUsers.append_user_list_json">
-<code class="descname">append_user_list_json</code><span class="sig-paren">(</span><em>user_list_json_filename='users.json'</em><span class="sig-paren">)</span><a class="headerlink" href="#twitterfeatures.twitterusers.TwitterUsers.append_user_list_json" title="Permalink to this definition">¶</a></dt>
-<dd><p>Append Twitter user list to existing user list from JSON file
-Use along with write_user_list_json to add new users to merge to existing JSON user file</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="twitterfeatures.twitterusers.TwitterUsers.get_bot_user_list_csv">
-<code class="descname">get_bot_user_list_csv</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#twitterfeatures.twitterusers.TwitterUsers.get_bot_user_list_csv" title="Permalink to this definition">¶</a></dt>
-<dd><div class="admonition-todo admonition" id="index-0">
-<p class="first admonition-title">Todo</p>
-<p class="last">implement</p>
-</div>
-</dd></dl>
-
-<dl class="method">
-<dt id="twitterfeatures.twitterusers.TwitterUsers.get_human_user_list_csv">
-<code class="descname">get_human_user_list_csv</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#twitterfeatures.twitterusers.TwitterUsers.get_human_user_list_csv" title="Permalink to this definition">¶</a></dt>
-<dd><div class="admonition-todo admonition" id="index-1">
-<p class="first admonition-title">Todo</p>
-<p class="last">implement</p>
-</div>
-</dd></dl>
-
-<dl class="method">
-<dt id="twitterfeatures.twitterusers.TwitterUsers.get_user_list">
-<code class="descname">get_user_list</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#twitterfeatures.twitterusers.TwitterUsers.get_user_list" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="twitterfeatures.twitterusers.TwitterUsers.login">
-<code class="descname">login</code><span class="sig-paren">(</span><em>token</em>, <em>token_secret</em>, <em>consumer_key</em>, <em>consumer_secret</em><span class="sig-paren">)</span><a class="headerlink" href="#twitterfeatures.twitterusers.TwitterUsers.login" title="Permalink to this definition">¶</a></dt>
-<dd><p>Login and initialize the Twitter API object</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="twitterfeatures.twitterusers.TwitterUsers.read_user_list_json">
-<code class="descname">read_user_list_json</code><span class="sig-paren">(</span><em>user_list_json_filename='users.json'</em><span class="sig-paren">)</span><a class="headerlink" href="#twitterfeatures.twitterusers.TwitterUsers.read_user_list_json" title="Permalink to this definition">¶</a></dt>
-<dd><p>Initialize a new Twitter user list from JSON file</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="twitterfeatures.twitterusers.TwitterUsers.set_bot_user_list_csv">
-<code class="descname">set_bot_user_list_csv</code><span class="sig-paren">(</span><em>user_list</em><span class="sig-paren">)</span><a class="headerlink" href="#twitterfeatures.twitterusers.TwitterUsers.set_bot_user_list_csv" title="Permalink to this definition">¶</a></dt>
-<dd><div class="admonition-todo admonition" id="index-2">
-<p class="first admonition-title">Todo</p>
-<p class="last">implement</p>
-</div>
-</dd></dl>
-
-<dl class="method">
-<dt id="twitterfeatures.twitterusers.TwitterUsers.set_human_user_list_csv">
-<code class="descname">set_human_user_list_csv</code><span class="sig-paren">(</span><em>user_list</em><span class="sig-paren">)</span><a class="headerlink" href="#twitterfeatures.twitterusers.TwitterUsers.set_human_user_list_csv" title="Permalink to this definition">¶</a></dt>
-<dd><div class="admonition-todo admonition" id="index-3">
-<p class="first admonition-title">Todo</p>
-<p class="last">implement</p>
-</div>
-</dd></dl>
-
-<dl class="method">
-<dt id="twitterfeatures.twitterusers.TwitterUsers.write_user_list_json">
-<code class="descname">write_user_list_json</code><span class="sig-paren">(</span><em>user_list_json_filename='userlist.json'</em><span class="sig-paren">)</span><a class="headerlink" href="#twitterfeatures.twitterusers.TwitterUsers.write_user_list_json" title="Permalink to this definition">¶</a></dt>
-<dd><div class="admonition-todo admonition" id="index-4">
-<p class="first admonition-title">Todo</p>
-<p class="last">implement JSON hierarchy</p>
-</div>
-</dd></dl>
-
-</dd></dl>
-
-</div>
 <hr class="docutils" />
 <span class="target" id="module-twitterfeatures.twitterfeatures"></span><div class="section" id="twitter-features-wrapper">
 <h2>Twitter features wrapper<a class="headerlink" href="#twitter-features-wrapper" title="Permalink to this headline">¶</a></h2>
@@ -139,7 +54,7 @@ Use along with write_user_list_json to add new users to merge to existing JSON u
 <dl class="method">
 <dt id="twitterfeatures.twitterfeatures.TwitterFeatures.add_master_feature">
 <code class="descname">add_master_feature</code><span class="sig-paren">(</span><em>description_</em>, <em>calc_function</em><span class="sig-paren">)</span><a class="headerlink" href="#twitterfeatures.twitterfeatures.TwitterFeatures.add_master_feature" title="Permalink to this definition">¶</a></dt>
-<dd><div class="admonition-todo admonition" id="index-5">
+<dd><div class="admonition-todo admonition" id="index-0">
 <p class="first admonition-title">Todo</p>
 <p class="last">implement</p>
 </div>
@@ -148,7 +63,7 @@ Use along with write_user_list_json to add new users to merge to existing JSON u
 <dl class="method">
 <dt id="twitterfeatures.twitterfeatures.TwitterFeatures.get_all_features_description">
 <code class="descname">get_all_features_description</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#twitterfeatures.twitterfeatures.TwitterFeatures.get_all_features_description" title="Permalink to this definition">¶</a></dt>
-<dd><div class="admonition-todo admonition" id="index-6">
+<dd><div class="admonition-todo admonition" id="index-1">
 <p class="first admonition-title">Todo</p>
 <p class="last">implement</p>
 </div>
@@ -157,7 +72,7 @@ Use along with write_user_list_json to add new users to merge to existing JSON u
 <dl class="method">
 <dt id="twitterfeatures.twitterfeatures.TwitterFeatures.get_feature_description">
 <code class="descname">get_feature_description</code><span class="sig-paren">(</span><em>feature_id</em><span class="sig-paren">)</span><a class="headerlink" href="#twitterfeatures.twitterfeatures.TwitterFeatures.get_feature_description" title="Permalink to this definition">¶</a></dt>
-<dd><div class="admonition-todo admonition" id="index-7">
+<dd><div class="admonition-todo admonition" id="index-2">
 <p class="first admonition-title">Todo</p>
 <p class="last">implement</p>
 </div>
@@ -166,7 +81,7 @@ Use along with write_user_list_json to add new users to merge to existing JSON u
 <dl class="method">
 <dt id="twitterfeatures.twitterfeatures.TwitterFeatures.get_master_features_list">
 <code class="descname">get_master_features_list</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#twitterfeatures.twitterfeatures.TwitterFeatures.get_master_features_list" title="Permalink to this definition">¶</a></dt>
-<dd><div class="admonition-todo admonition" id="index-8">
+<dd><div class="admonition-todo admonition" id="index-3">
 <p class="first admonition-title">Todo</p>
 <p class="last">implement</p>
 </div>
@@ -175,7 +90,7 @@ Use along with write_user_list_json to add new users to merge to existing JSON u
 <dl class="method">
 <dt id="twitterfeatures.twitterfeatures.TwitterFeatures.get_selected_features">
 <code class="descname">get_selected_features</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#twitterfeatures.twitterfeatures.TwitterFeatures.get_selected_features" title="Permalink to this definition">¶</a></dt>
-<dd><div class="admonition-todo admonition" id="index-9">
+<dd><div class="admonition-todo admonition" id="index-4">
 <p class="first admonition-title">Todo</p>
 <p class="last">implement</p>
 </div>
@@ -184,7 +99,7 @@ Use along with write_user_list_json to add new users to merge to existing JSON u
 <dl class="method">
 <dt id="twitterfeatures.twitterfeatures.TwitterFeatures.remove_feature">
 <code class="descname">remove_feature</code><span class="sig-paren">(</span><em>feature_id</em><span class="sig-paren">)</span><a class="headerlink" href="#twitterfeatures.twitterfeatures.TwitterFeatures.remove_feature" title="Permalink to this definition">¶</a></dt>
-<dd><div class="admonition-todo admonition" id="index-10">
+<dd><div class="admonition-todo admonition" id="index-5">
 <p class="first admonition-title">Todo</p>
 <p class="last">implement</p>
 </div>
@@ -193,7 +108,7 @@ Use along with write_user_list_json to add new users to merge to existing JSON u
 <dl class="method">
 <dt id="twitterfeatures.twitterfeatures.TwitterFeatures.remove_master_feature">
 <code class="descname">remove_master_feature</code><span class="sig-paren">(</span><em>feature_id</em><span class="sig-paren">)</span><a class="headerlink" href="#twitterfeatures.twitterfeatures.TwitterFeatures.remove_master_feature" title="Permalink to this definition">¶</a></dt>
-<dd><div class="admonition-todo admonition" id="index-11">
+<dd><div class="admonition-todo admonition" id="index-6">
 <p class="first admonition-title">Todo</p>
 <p class="last">implement</p>
 </div>
@@ -202,7 +117,7 @@ Use along with write_user_list_json to add new users to merge to existing JSON u
 <dl class="method">
 <dt id="twitterfeatures.twitterfeatures.TwitterFeatures.select_feature">
 <code class="descname">select_feature</code><span class="sig-paren">(</span><em>feature_id_list=['all']</em><span class="sig-paren">)</span><a class="headerlink" href="#twitterfeatures.twitterfeatures.TwitterFeatures.select_feature" title="Permalink to this definition">¶</a></dt>
-<dd><div class="admonition-todo admonition" id="index-12">
+<dd><div class="admonition-todo admonition" id="index-7">
 <p class="first admonition-title">Todo</p>
 <p class="last">implement</p>
 </div>
@@ -233,11 +148,14 @@ Use along with write_user_list_json to add new users to merge to existing JSON u
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -248,11 +166,11 @@ Use along with write_user_list_json to add new users to merge to existing JSON u
       &copy;2017, Karthick N G.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.5</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.7</a>
       
       |
-      <a href="../_sources/docsources/twitterfeatures.rst.txt"
+      <a href="../_sources/docsources/twitterfeatures.txt"
           rel="nofollow">Page source</a>
     </div>
 
