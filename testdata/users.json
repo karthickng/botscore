@@ -1,15 +1,12 @@
 {
     "humanusers":[
-            {"name": "@iasura_"}, {"name":"@dww_k"}, {"name":"@iasura_2"}
+            "@iasura_", "@dww_k", "@iasura_2"
             ]
             ,
 
     "botusers":[
-            {
-            "name" : "@RUWT"
-            },
-            {
-            "name" : "@jamesmtitus"
-            }
+            "@RUWT"
+            ,
+            "@jamesmtitus"
             ]
 }

@@ -11,6 +11,7 @@ from twitterfeatures.userlist import twitter_bots, twitter_humans
 from error import UserTypeError
 import json
 from fileinput import close
+from sphinx.util.pycompat import indent
 
 class TwitterUsers(object):
     '''
@@ -89,7 +90,8 @@ class TwitterUsers(object):
         write_list = twitter_humans + twitter_bots
         try:
             with open(user_list_json_filename, "xt") as outfile:
-                json.dump(write_list, outfile)
+                #json.dump("humanusers : [", outfile)
+                json.dump(write_list, outfile, indent=4)
         except Exception:
             print("Error reading JSON file:" + str(user_list_json_filename))
             '''.. todo:: try to close file on exception?? '''
@@ -114,9 +116,9 @@ class TwitterUsers(object):
     def _append_json_user_data(self, user_data):
         """.. todo: handle empty lists case """
         for s in user_data['humanusers']:
-            twitter_humans.append(s['name'])
+            twitter_humans.append(s)
         for s in user_data['botusers']:
-            twitter_bots.append(s['name'])
+            twitter_bots.append(s)
         
     def __init__(self, token, token_secret, consumer_key, consumer_secret):
         '''

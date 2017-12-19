@@ -8,8 +8,10 @@ import sys
 from twitterfeatures.twitterusers import TwitterUsers
 from twitterfeatures.twitterfeatures import TwitterFeatures
 from error import *
+import os
 
 """.. todo:: take from command line or file """
+""".. todo:: delete token after development """
 token = "3018287190-tG4K1NW1OAUMKi1IhKsFn41LwBsnSsYfj0GA6vX"
 token_secret = "7zivxHb2ckKEnY3TlWojjLr6Rpcxh5ikQyvGdgaJhAlU8"
 consumer_key = "BXrC55ZUlvmuuGeLnzIqW4nhr"
@@ -34,6 +36,9 @@ def process_cmd(args):
 	return True
 
 def test_twitterusers():
+	
+	if (os.path.isfile("merged_user_list.json")):
+		os.remove("merged_user_list.json")
 	t = TwitterUsers(token, token_secret, consumer_key, consumer_secret)
 	try:
 		for username in ["@RUWT","@jamesmtitus"]:

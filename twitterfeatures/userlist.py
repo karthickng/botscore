@@ -3,6 +3,7 @@ List of positive (bot) and negative (human) users
 -------------------------------------------------
 """
 
+""" ..todo:: convert to set instead of list """
 twitter_bots = []
 twitter_humans = []
 

@@ -1,11 +1,9 @@
 {
     "humanusers":[
-            {"name": "@swamy79"}
+            "@swamy79"
             ]
             ,
     "botusers":[
-            {
-            "name" : "@RUWT"
-            }
+            "@RUWT"
             ]
 }
