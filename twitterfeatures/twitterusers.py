@@ -4,14 +4,9 @@ Twitter users wrapper
 '''
 
 from twitter import Twitter, OAuth
-import logging
-import datetime
-import numpy as np
 from twitterfeatures.userlist import twitter_bots, twitter_humans
 from error import UserTypeError
 import json
-from fileinput import close
-from sphinx.util.pycompat import indent
 
 class TwitterUsers(object):
     '''
@@ -34,7 +29,7 @@ class TwitterUsers(object):
     
     def add_user(self, userid, usertype='human'):
         ''' Add one user to the Twitter user list '''
-        """.. todo:: validate userid, exception handling?"""
+        """.. todo:: validate userid, exception handling here?"""
         if usertype == 'human':
             twitter_humans.append(userid)
         elif usertype == 'bot':
@@ -48,7 +43,7 @@ class TwitterUsers(object):
         try:
             f= open(user_list_json_filename,'rt')
             user_data = json.load(f)
-            """.. todo:: JSON schema(?) check?"""
+            """.. todo:: JSON structure(?) check?"""
             twitter_humans.clear()
             twitter_bots.clear()
             self._append_json_user_data(user_data)
@@ -81,16 +76,15 @@ class TwitterUsers(object):
    
     def get_user_list(self):
         ret_list = twitter_humans + twitter_bots
-        """.. todo:: implement type identification?"""
         return ret_list
         pass
     
     def write_user_list_json(self,user_list_json_filename="userlist.json"):
-        """.. todo:: implement JSON hierarchy """
-        write_list = twitter_humans + twitter_bots
+        write_list = {}
+        write_list["humanusers"] = twitter_humans
+        write_list["botusers"] = twitter_bots
         try:
             with open(user_list_json_filename, "xt") as outfile:
-                #json.dump("humanusers : [", outfile)
                 json.dump(write_list, outfile, indent=4)
         except Exception:
             print("Error reading JSON file:" + str(user_list_json_filename))
@@ -114,7 +108,6 @@ class TwitterUsers(object):
         return oauth_details
         
     def _append_json_user_data(self, user_data):
-        """.. todo: handle empty lists case """
         for s in user_data['humanusers']:
             twitter_humans.append(s)
         for s in user_data['botusers']:
