@@ -64,8 +64,15 @@ def test_twitterusers():
 	print("User list with appended list:\n" + str(t.get_user_list()) + "\n")
 	
 	t.write_user_list_json("merged_user_list.json")
+	
+def test_twitterfeatures():
+	
+	f = TwitterFeatures()
+	f.get_selected_features()
+	
 if __name__ == "__main__":
 		process_cmd(sys.argv)
 		test_twitterusers()
+		test_twitterfeatures()
 
 #end of file

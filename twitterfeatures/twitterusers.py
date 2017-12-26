@@ -29,10 +29,17 @@ class TwitterUsers(object):
     
     def add_user(self, userid, usertype='human'):
         ''' Add one user to the Twitter user list '''
-        """.. todo:: validate userid, exception handling here?"""
+        from builtins import str
+        """.. todo:: validate userid(?), duplicate handling, exception handling here(?)"""
         if usertype == 'human':
+            if (userid in twitter_humans):
+                print(str(userid) + ' is already in human user list')
+                return
             twitter_humans.append(userid)
         elif usertype == 'bot':
+            if (userid in twitter_bots):
+                print(str(userid) + ' is already in bot user list')
+                return
             twitter_bots.append(userid)
         else:
             raise UserTypeError
@@ -109,8 +116,14 @@ class TwitterUsers(object):
         
     def _append_json_user_data(self, user_data):
         for s in user_data['humanusers']:
+            if (s in twitter_humans):
+                print(str(s) + ' is already in human user list')
+                continue
             twitter_humans.append(s)
         for s in user_data['botusers']:
+            if (s in twitter_bots):
+                print(str(s) + ' is already in bot user list')
+                continue
             twitter_bots.append(s)
         
     def __init__(self, token, token_secret, consumer_key, consumer_secret):

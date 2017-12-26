@@ -3,6 +3,8 @@ Twitter features wrapper
 ------------------------
 '''
 
+from twitterfeatures.userlist import twitter_humans
+
 class TwitterFeatures(object):
     '''
     Twitter features manager class
@@ -30,6 +32,8 @@ class TwitterFeatures(object):
     
     def get_selected_features(self):
         """.. todo:: implement """
+        for user in twitter_humans:
+            t = Tweets(user)
         pass
     
     def remove_feature(self, feature_id):
@@ -88,3 +92,19 @@ class TwitterFeatures(object):
                 std_intertweet_period = np.std(time_between_tweets_sec)
                 print("Mean = " + str(mean_intertweet_period) + ", SD = " + str(std_intertweet_period))
                 """
+
+class Tweets(object):
+    '''
+    Tweets manager class
+    '''
+    
+    def __init__(self, user):
+        """.. todo:: implement """
+        from builtins import str
+        try:
+            print("Created Tweets object" + str(user))
+        except Exception:
+            print("Unable to get tweets")
+            pass
+
+    
