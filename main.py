@@ -7,7 +7,7 @@ Main entry point of the botscore program: handles command line processing.
 import sys
 from twitterfeatures.twitterusers import TwitterUsers
 from twitterfeatures.twitterfeatures import TwitterFeatures
-from error import *
+from error import UserListCreationError, UserTypeError
 import os
 
 """.. todo:: take from command line or file """
@@ -65,14 +65,16 @@ def test_twitterusers():
 	
 	t.write_user_list_json("merged_user_list.json")
 	
-def test_twitterfeatures():
+	return t
+	
+def test_twitterfeatures(t):
 	
 	f = TwitterFeatures()
-	f.get_selected_features()
+	f.extract_features(t)
 	
 if __name__ == "__main__":
 		process_cmd(sys.argv)
-		test_twitterusers()
-		test_twitterfeatures()
+		t = test_twitterusers()
+		test_twitterfeatures(t)
 
 #end of file

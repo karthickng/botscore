@@ -1,38 +1,39 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>twitterfeatures module &mdash; BotScore 0.1 documentation</title>
-    
+    <title>twitterfeatures module &#8212; BotScore 0.1 documentation</title>
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
         VERSION:     '0.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="BotScore 0.1 documentation" href="../index.html" />
-    <link rel="up" title="List of BotScore source files" href="Sources.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Error module" href="errorpy.html" />
     <link rel="prev" title="Main module" href="mainpy.html" />
    
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
   
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   </head>
-  <body role="document">  
+  <body>
+  
 
     <div class="document">
       <div class="documentwrapper">
@@ -64,6 +65,11 @@ Use along with write_user_list_json to add new users to merge to existing JSON u
 </dd></dl>
 
 <dl class="method">
+<dt id="twitterfeatures.twitterusers.TwitterUsers.get_bot_list">
+<code class="descname">get_bot_list</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#twitterfeatures.twitterusers.TwitterUsers.get_bot_list" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
 <dt id="twitterfeatures.twitterusers.TwitterUsers.get_bot_user_list_csv">
 <code class="descname">get_bot_user_list_csv</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#twitterfeatures.twitterusers.TwitterUsers.get_bot_user_list_csv" title="Permalink to this definition">¶</a></dt>
 <dd><div class="admonition-todo admonition" id="index-0">
@@ -71,6 +77,11 @@ Use along with write_user_list_json to add new users to merge to existing JSON u
 <p class="last">implement</p>
 </div>
 </dd></dl>
+
+<dl class="method">
+<dt id="twitterfeatures.twitterusers.TwitterUsers.get_human_list">
+<code class="descname">get_human_list</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#twitterfeatures.twitterusers.TwitterUsers.get_human_list" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <dl class="method">
 <dt id="twitterfeatures.twitterusers.TwitterUsers.get_human_user_list_csv">
@@ -131,6 +142,11 @@ Use along with write_user_list_json to add new users to merge to existing JSON u
 <dt id="twitterfeatures.twitterfeatures.TwitterFeatures">
 <em class="property">class </em><code class="descclassname">twitterfeatures.twitterfeatures.</code><code class="descname">TwitterFeatures</code><span class="sig-paren">(</span><em>user_list=[]</em><span class="sig-paren">)</span><a class="headerlink" href="#twitterfeatures.twitterfeatures.TwitterFeatures" title="Permalink to this definition">¶</a></dt>
 <dd><p>Twitter features manager class</p>
+<dl class="attribute">
+<dt id="twitterfeatures.twitterfeatures.TwitterFeatures.MAX_TWEETS_PER_ACCOUNT">
+<code class="descname">MAX_TWEETS_PER_ACCOUNT</code><em class="property"> = 200</em><a class="headerlink" href="#twitterfeatures.twitterfeatures.TwitterFeatures.MAX_TWEETS_PER_ACCOUNT" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="method">
 <dt id="twitterfeatures.twitterfeatures.TwitterFeatures.add_master_feature">
 <code class="descname">add_master_feature</code><span class="sig-paren">(</span><em>description_</em>, <em>calc_function</em><span class="sig-paren">)</span><a class="headerlink" href="#twitterfeatures.twitterfeatures.TwitterFeatures.add_master_feature" title="Permalink to this definition">¶</a></dt>
@@ -139,6 +155,11 @@ Use along with write_user_list_json to add new users to merge to existing JSON u
 <p class="last">implement</p>
 </div>
 </dd></dl>
+
+<dl class="method">
+<dt id="twitterfeatures.twitterfeatures.TwitterFeatures.extract_features">
+<code class="descname">extract_features</code><span class="sig-paren">(</span><em>t</em><span class="sig-paren">)</span><a class="headerlink" href="#twitterfeatures.twitterfeatures.TwitterFeatures.extract_features" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <dl class="method">
 <dt id="twitterfeatures.twitterfeatures.TwitterFeatures.get_all_features_description">
@@ -228,14 +249,11 @@ Use along with write_user_list_json to add new users to merge to existing JSON u
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -246,11 +264,11 @@ Use along with write_user_list_json to add new users to merge to existing JSON u
       &copy;2017, Karthick N G.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.6</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.7</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
       
       |
-      <a href="../_sources/docsources/twitterfeatures.txt"
+      <a href="../_sources/docsources/twitterfeatures.rst.txt"
           rel="nofollow">Page source</a>
     </div>
 

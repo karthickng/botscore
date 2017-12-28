@@ -21,7 +21,7 @@ class TwitterUsers(object):
         self.consumer_secret = consumer_secret
         
         try:
-            self.t = Twitter(auth=OAuth(token, token_secret, consumer_key, consumer_secret))   #ToDo- Add authorization, error handling
+            self.twitter_object = Twitter(auth=OAuth(token, token_secret, consumer_key, consumer_secret))   #ToDo- Add authorization, error handling
         except Exception:
             print('Error logging in to Twitter')
             print('Ensure valid Twitter credentials. Refer https://apps.twitter.com/')
@@ -84,7 +84,12 @@ class TwitterUsers(object):
     def get_user_list(self):
         ret_list = twitter_humans + twitter_bots
         return ret_list
-        pass
+    
+    def get_human_list(self):
+        return twitter_humans
+    
+    def get_bot_list(self):
+        return twitter_bots
     
     def write_user_list_json(self,user_list_json_filename="userlist.json"):
         write_list = {}
