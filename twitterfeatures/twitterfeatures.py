@@ -53,17 +53,45 @@ class TwitterFeatures(object):
         self._get_tweet_list(t)
         
     def _get_tweet_list(self, t):
+
+        from botocore.vendored.requests.compat import str
         raw_human_tweets = []
         raw_bot_tweets = []
-        humans = t.get_human_list()
-        d = t.twitter_object.statuses.user_timeline(screen_name=humans[1],  count= self.MAX_TWEETS_PER_ACCOUNT, include_rts = False)
-        print('Got ' + str(len(d)) + ' tweets from ' + str(humans[1]))
-        print(str(d[2]['text']))
         
+        humans = t.get_human_list()
+        bots = t.get_bot_list()     
+        
+        for usernames in humans:
+            try:
+                d = t.twitter_object.statuses.user_timeline(screen_name=usernames,  count= self.MAX_TWEETS_PER_ACCOUNT, include_rts = False)
+                print('Got ' + str(len(d)) + ' tweets from ' + str(usernames))
+                for i in d:
+                    raw_human_tweets.append(i['text'])
+            except Exception:
+                print('Error getting tweets from ' + str(usernames))
+                print('Check user ID: ' + str(usernames))
+                continue
+            
+        for usernames in bots:
+            try:
+                d = t.twitter_object.statuses.user_timeline(screen_name=usernames,  count= self.MAX_TWEETS_PER_ACCOUNT, include_rts = False)
+                print('Got ' + str(len(d)) + ' tweets from ' + str(usernames))
+                for i in d:
+                    raw_bot_tweets.append(i['text'])
+            except Exception:
+                print('Error getting tweets from ' + str(usernames))
+                print('Check user ID: ' + str(usernames))
+                continue
+    
+            
+            
+        print('Number of humans tweets: ' +str(len(raw_human_tweets)))
         bots = t.get_bot_list()
         d = t.twitter_object.statuses.user_timeline(screen_name=bots[1],  count= self.MAX_TWEETS_PER_ACCOUNT, include_rts = False)
         print('Got ' + str(len(d)) + ' tweets from ' + str(bots[1]))
         print(str(d[0]['text']))
+        
+                
         
 
     
