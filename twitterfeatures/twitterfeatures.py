@@ -50,10 +50,9 @@ class TwitterFeatures(object):
         pass
     
     def extract_features(self, t):
-        self.features = []
         self._get_tweet_list(t) #in self.raw_human_tweets and self.raw_bot_tweets
         self._preprocess_tweets()
-        return self.features
+        return self.human_bow_corpus, self.bot_bow_corpus
         
         
     def _get_tweet_list(self, t):
@@ -80,8 +79,7 @@ class TwitterFeatures(object):
                 for i in d:
                     self.raw_bot_tweets.append(i['text'])
             except Exception:
-                print('Error getting tweets from ' + str(usernames))
-                print('Check user ID: ' + str(usernames))
+                print('Error getting tweets from user ID: ' + str(usernames))
                 continue
             
         print('Number of human tweets: ' +str(len(self.raw_human_tweets)))
@@ -119,7 +117,14 @@ class TwitterFeatures(object):
         for text in humantexts:
             for token in text:
                 wordfrequencyhuman[token] += 1
-        print(wordfrequencyhuman)
+                
+        #Only words used more than once are considered
+        # Todo: revisit this based on  data
+        processed_corpus_humans = [[token for token in text if wordfrequencyhuman[token] > 1] for text in humantexts]
+        
+        from gensim import corpora
+        human_dictionary = corpora.Dictionary(processed_corpus_humans)
+        self.human_bow_corpus = [human_dictionary.doc2bow(text) for text in processed_corpus_humans]
 
 #process bot tweets
         # Lowercase each document, split it by white space and filter out stopwords
@@ -133,7 +138,7 @@ class TwitterFeatures(object):
                 if token.startswith('@'):
                     text.remove(token)
                 #Remove all hyperlinks
-                if 'http' in token or 'https' in token:
+                if 'http' in token:
                     text.remove(token)
         '''for text in texts:
             for token in text:
@@ -146,9 +151,14 @@ class TwitterFeatures(object):
         for text in bottexts:
             for token in text:
                 wordfrequencybot[token] += 1
-        print(wordfrequencybot)
-        
-        
+                
+        #Only words used more than once are considered
+        # Todo: revisit this based on  data
+        processed_corpus_bots = [[token for token in text if wordfrequencybot[token] > 1] for text in bottexts]
+            
+        from gensim import corpora
+        bot_dictionary = corpora.Dictionary(processed_corpus_bots)
+        self.bot_bow_corpus = [bot_dictionary.doc2bow(text) for text in processed_corpus_bots]
 
     
 """  todo: use below code when needed   

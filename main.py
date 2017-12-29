@@ -71,13 +71,13 @@ def test_twitterusers():
 def test_twitterfeatures(t):
 	
 	f = TwitterFeatures()
-	testfeatures = f.extract_features(t)
-	return testfeatures
+	humanbow, botbow = f.extract_features(t)
+	return humanbow, botbow
 	
 if __name__ == "__main__":
 		process_cmd(sys.argv)
 		t = test_twitterusers()
-		f = test_twitterfeatures(t)
-		classify_complexity_metric(f)
+		humanbow, botbow = test_twitterfeatures(t)
+		classify_complexity_metric(humanbow, botbow)
 
 #end of file

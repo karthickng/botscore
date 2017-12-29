@@ -7,5 +7,7 @@ Created on 29-Dec-2017
 
 from twitterfeatures.twitterfeatures import TwitterFeatures
 
-def classify_complexity_metric(f):
+def classify_complexity_metric(humanbow, botbow):
+    print(humanbow)
+    print(botbow)
     pass #print(str(f))
