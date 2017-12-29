@@ -82,8 +82,8 @@ class TwitterFeatures(object):
                 print('Error getting tweets from user ID: ' + str(usernames))
                 continue
             
-        print('Number of human tweets: ' +str(len(self.raw_human_tweets)))
-        print('Number of bot  tweets: ' +str(len(self.raw_bot_tweets)))
+        print('Number of human accounts: ' +str(len(humans)))
+        print('Number of bot accounts: ' +str(len(bots)))
         
     def _preprocess_tweets(self):
         """Preprocess tweets before feature extraction"""
