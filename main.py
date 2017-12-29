@@ -7,6 +7,7 @@ Main entry point of the botscore program: handles command line processing.
 import sys
 from twitterfeatures.twitterusers import TwitterUsers
 from twitterfeatures.twitterfeatures import TwitterFeatures
+from twitterlearn.checkbot import *
 from error import UserListCreationError, UserTypeError
 import os
 
@@ -45,7 +46,7 @@ def test_twitterusers():
 			t.add_user(username, 'bot')
 		for username in ["@iasura_","@dww_k", "@ShefVaidya"]:
 			t.add_user(username) # default type='human'
-		print("Test User list programmed:\n" + str(t.get_user_list()) + "\n")
+		#print("Test User list programmed:\n" + str(t.get_user_list()) + "\n")
 	except UserListCreationError:
 		print('User list creation error')
 	except UserTypeError:
@@ -55,13 +56,13 @@ def test_twitterusers():
 		raise
 	
 	t.read_user_list_json("testdata/users.json")
-	print("Test User list JSON:\n" + str(t.get_user_list()) + "\n")
+	#print("Test User list JSON:\n" + str(t.get_user_list()) + "\n")
 	
 	t.add_user("@new_user", "bot")
-	print("User list with new addition:\n" + str(t.get_user_list()) + "\n")
+	#print("User list with new addition:\n" + str(t.get_user_list()) + "\n")
 	
 	t.append_user_list_json("testdata/more_users.json")
-	print("User list with appended list:\n" + str(t.get_user_list()) + "\n")
+	#print("User list with appended list:\n" + str(t.get_user_list()) + "\n")
 	
 	t.write_user_list_json("merged_user_list.json")
 	
@@ -70,11 +71,13 @@ def test_twitterusers():
 def test_twitterfeatures(t):
 	
 	f = TwitterFeatures()
-	f.extract_features(t)
+	testfeatures = f.extract_features(t)
+	return testfeatures
 	
 if __name__ == "__main__":
 		process_cmd(sys.argv)
 		t = test_twitterusers()
-		test_twitterfeatures(t)
+		f = test_twitterfeatures(t)
+		classify_complexity_metric(f)
 
 #end of file

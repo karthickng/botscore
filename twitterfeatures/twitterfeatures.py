@@ -50,13 +50,16 @@ class TwitterFeatures(object):
         pass
     
     def extract_features(self, t):
-        self._get_tweet_list(t)
+        self.features = []
+        self._get_tweet_list(t) #in self.raw_human_tweets and self.raw_bot_tweets
+        self._preprocess_tweets()
+        return self.features
+        
         
     def _get_tweet_list(self, t):
-
-        from botocore.vendored.requests.compat import str
-        raw_human_tweets = []
-        raw_bot_tweets = []
+        """Get tweet list by accounts in human and bot list """
+        self.raw_human_tweets = []
+        self.raw_bot_tweets = []
         
         humans = t.get_human_list()
         bots = t.get_bot_list()     
@@ -64,9 +67,8 @@ class TwitterFeatures(object):
         for usernames in humans:
             try:
                 d = t.twitter_object.statuses.user_timeline(screen_name=usernames,  count= self.MAX_TWEETS_PER_ACCOUNT, include_rts = False)
-                print('Got ' + str(len(d)) + ' tweets from ' + str(usernames))
                 for i in d:
-                    raw_human_tweets.append(i['text'])
+                    self.raw_human_tweets.append(i['text'])
             except Exception:
                 print('Error getting tweets from ' + str(usernames))
                 print('Check user ID: ' + str(usernames))
@@ -75,23 +77,77 @@ class TwitterFeatures(object):
         for usernames in bots:
             try:
                 d = t.twitter_object.statuses.user_timeline(screen_name=usernames,  count= self.MAX_TWEETS_PER_ACCOUNT, include_rts = False)
-                print('Got ' + str(len(d)) + ' tweets from ' + str(usernames))
                 for i in d:
-                    raw_bot_tweets.append(i['text'])
+                    self.raw_bot_tweets.append(i['text'])
             except Exception:
                 print('Error getting tweets from ' + str(usernames))
                 print('Check user ID: ' + str(usernames))
                 continue
-    
             
-            
-        print('Number of humans tweets: ' +str(len(raw_human_tweets)))
-        bots = t.get_bot_list()
-        d = t.twitter_object.statuses.user_timeline(screen_name=bots[1],  count= self.MAX_TWEETS_PER_ACCOUNT, include_rts = False)
-        print('Got ' + str(len(d)) + ' tweets from ' + str(bots[1]))
-        print(str(d[0]['text']))
+        print('Number of human tweets: ' +str(len(self.raw_human_tweets)))
+        print('Number of bot  tweets: ' +str(len(self.raw_bot_tweets)))
         
-                
+    def _preprocess_tweets(self):
+        """Preprocess tweets before feature extraction"""
+        
+        # Create a set of frequent words to remove
+        stoplist = set('for a of the and to in is was has have with as'.split(' '))
+       
+#process human tweets 
+        # Lowercase each document, split it by white space and filter out stopwords
+        humantexts = [[word for word in document.lower().split() if word not in stoplist] 
+                 for document in self.raw_human_tweets]
+        
+        from gensim import parsing
+        for text in humantexts:
+            for token in text:
+                #Remove all references to Twitter accounts
+                if token.startswith('@'):
+                    text.remove(token)
+                #Remove all hyperlinks
+                #todo: use regexp
+                if 'http' in token: #basic check, will remove even regular text which has substring 'http'
+                    text.remove(token)
+        '''for text in texts:
+            for token in text:
+                stemmed_token = parsing.stem_text(token)
+                #print(stemmed_token)
+            ... todo: stemming '''
+                    
+        from collections import defaultdict
+        wordfrequencyhuman = defaultdict(int)
+        for text in humantexts:
+            for token in text:
+                wordfrequencyhuman[token] += 1
+        print(wordfrequencyhuman)
+
+#process bot tweets
+        # Lowercase each document, split it by white space and filter out stopwords
+        bottexts = [[word for word in document.lower().split() if word not in stoplist] 
+                 for document in self.raw_bot_tweets]
+        
+        from gensim import parsing
+        for text in bottexts:
+            for token in text:
+                #Remove all references to Twitter accounts
+                if token.startswith('@'):
+                    text.remove(token)
+                #Remove all hyperlinks
+                if 'http' in token or 'https' in token:
+                    text.remove(token)
+        '''for text in texts:
+            for token in text:
+                stemmed_token = parsing.stem_text(token)
+                #print(stemmed_token)
+            ... todo: stemming '''
+                    
+        from collections import defaultdict
+        wordfrequencybot = defaultdict(int)
+        for text in bottexts:
+            for token in text:
+                wordfrequencybot[token] += 1
+        print(wordfrequencybot)
+        
         
 
     
