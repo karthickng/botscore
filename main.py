@@ -7,7 +7,7 @@ Main entry point of the botscore program: handles command line processing.
 import sys
 from twitterfeatures.twitterusers import TwitterUsers
 from twitterfeatures.twitterfeatures import TwitterFeatures
-from twitterlearn.checkbot import *
+from twitterlearn.checkbot import classify_complexity_metric
 from error import UserListCreationError, UserTypeError
 import os
 
@@ -21,8 +21,12 @@ consumer_secret = "Tit9mp5hwG9CbDrOMDywTNKghVOzDQ9wqhCAFKGW8LLBt7IXAt"
 def _show_usage():
 	""" Print usage help for program. """
 	
-	print("Usage: botscore <userid>\n")
+	print("Usage: python3 main.py <userid>")
 	sys.exit(0)
+	
+	'''print("Usage: botscore <userid>\n")
+	sys.exit(0)
+	'''
 	
 def process_cmd(args):
 	""" Process command line arguments. """
@@ -78,6 +82,6 @@ if __name__ == "__main__":
 		process_cmd(sys.argv)
 		t = test_twitterusers()
 		humanbow, botbow = test_twitterfeatures(t)
-		classify_complexity_metric(humanbow, botbow)
+		classify_complexity_metric(humanbow, botbow, t, "@vivekagnihotri")
 
 #end of file

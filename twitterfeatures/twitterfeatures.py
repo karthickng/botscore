@@ -52,11 +52,11 @@ class TwitterFeatures(object):
     def extract_features(self, t):
         self._get_tweet_list(t) #in self.raw_human_tweets and self.raw_bot_tweets
         self._preprocess_tweets()
-        return self.human_bow_corpus, self.bot_bow_corpus
-        
+        return self.human_bow_vectors, self.bot_bow_vectors
         
     def _get_tweet_list(self, t):
         """Get tweet list by accounts in human and bot list """
+        """.. todo:: This function must be rewritten to accommodate iterating from a larger account list """
         self.raw_human_tweets = []
         self.raw_bot_tweets = []
         
@@ -82,36 +82,39 @@ class TwitterFeatures(object):
                 print('Error getting tweets from user ID: ' + str(usernames))
                 continue
             
-        print('Number of human accounts: ' +str(len(humans)))
-        print('Number of bot accounts: ' +str(len(bots)))
+        print('Number of human accounts: ' +str(len(humans))+", Number of bot accounts: "  +str(len(bots)))
+        print('Number of human tweets: ' + str(len(self.raw_human_tweets))+', Number of bot tweets: ' + str(len(self.raw_bot_tweets)))
         
     def _preprocess_tweets(self):
         """Preprocess tweets before feature extraction"""
         
         # Create a set of frequent words to remove
-        stoplist = set('for a of the and to in is was has have with as'.split(' '))
+        stoplist = set('a an the is was were and or not for of with without to from has have had in out as'.split(' '))
        
 #process human tweets 
         # Lowercase each document, split it by white space and filter out stopwords
         humantexts = [[word for word in document.lower().split() if word not in stoplist] 
                  for document in self.raw_human_tweets]
         
-        from gensim import parsing
         for text in humantexts:
             for token in text:
                 #Remove all references to Twitter accounts
                 if token.startswith('@'):
                     text.remove(token)
+                    continue
                 #Remove all hyperlinks
                 #todo: use regexp
-                if 'http' in token: #basic check, will remove even regular text which has substring 'http'
+                if 'http' in token: #basic check, will remove even regular tokens which have substring 'http'
                     text.remove(token)
+                    
+        '''.. todo: add stemming '''
         '''for text in texts:
             for token in text:
                 stemmed_token = parsing.stem_text(token)
                 #print(stemmed_token)
             ... todo: stemming '''
-                    
+        
+        #Tokenize the collection of tweets            
         from collections import defaultdict
         wordfrequencyhuman = defaultdict(int)
         for text in humantexts:
@@ -124,14 +127,14 @@ class TwitterFeatures(object):
         
         from gensim import corpora
         human_dictionary = corpora.Dictionary(processed_corpus_humans)
-        self.human_bow_corpus = [human_dictionary.doc2bow(text) for text in processed_corpus_humans]
+        self.human_bow_vectors = [human_dictionary.doc2bow(text) for text in processed_corpus_humans]
+        #print(self.human_bow_vectors)
 
 #process bot tweets
         # Lowercase each document, split it by white space and filter out stopwords
         bottexts = [[word for word in document.lower().split() if word not in stoplist] 
                  for document in self.raw_bot_tweets]
         
-        from gensim import parsing
         for text in bottexts:
             for token in text:
                 #Remove all references to Twitter accounts
@@ -145,8 +148,8 @@ class TwitterFeatures(object):
                 stemmed_token = parsing.stem_text(token)
                 #print(stemmed_token)
             ... todo: stemming '''
-                    
-        from collections import defaultdict
+        
+        #Tokenize the collection of tweets            
         wordfrequencybot = defaultdict(int)
         for text in bottexts:
             for token in text:
@@ -156,10 +159,9 @@ class TwitterFeatures(object):
         # Todo: revisit this based on  data
         processed_corpus_bots = [[token for token in text if wordfrequencybot[token] > 1] for text in bottexts]
             
-        from gensim import corpora
         bot_dictionary = corpora.Dictionary(processed_corpus_bots)
-        self.bot_bow_corpus = [bot_dictionary.doc2bow(text) for text in processed_corpus_bots]
-
+        self.bot_bow_vectors = [bot_dictionary.doc2bow(text) for text in processed_corpus_bots]
+        #print(self.bot_bow_vectors)
     
 """  todo: use below code when needed   
     
