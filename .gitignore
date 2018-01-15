@@ -5,3 +5,5 @@ doc/_build/html/_static/
 *.json
 twitterfeatures/twitterusers.pyc
 Approach
+dictionary_lengths
+dict_lengths.ofig
