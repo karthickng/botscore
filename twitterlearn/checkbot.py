@@ -62,7 +62,7 @@ def classify_complexity_metric(humanbow, botbow, t, username):
         bot_index_ = similarities.MatrixSimilarity(tfidf[botbow])
         #print(human_index_)
         sims = human_index_[transformed_text_vectors[0]]
-        print(list(enumerate(sims)))
+        #print(list(enumerate(sims)))
         '''for i in d:
             sims = human_index_[i['text']]
             print(sims)'''

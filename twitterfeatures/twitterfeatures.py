@@ -140,7 +140,7 @@ class TwitterFeatures(object):
             print("Unable to save human dictionary file")
                 
         self.human_bow_vectors = [human_dictionary.doc2bow(text) for text in processed_corpus_humans]
-        #print(self.human_bow_vectors)
+        print("Human dictonary length: " + str(len(human_dictionary.values())))
 
 #process bot tweets
         # Lowercase each document, split it by white space and filter out stopwords
@@ -184,7 +184,7 @@ class TwitterFeatures(object):
             print("Unable to save bot dictionary file")
         
         self.bot_bow_vectors = [bot_dictionary.doc2bow(text) for text in processed_corpus_bots]
-        #print(self.bot_bow_vectors)
+        print("Bot dictonary length: " + str(len(bot_dictionary.values())))
     
 """  todo: use below code when needed   
     

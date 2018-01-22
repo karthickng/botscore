@@ -9,4 +9,7 @@ testdata/dictionary_lengths
 testdata/dict_lengths.ofig
 testdata/human_dict_length.csv
 testdata/bot_dict_length.csv
+testdata/ReadMe
+testdata/.~lock.bot_dict_length.csv#
+testdata/.~lock.human_dict_length.csv#
 
