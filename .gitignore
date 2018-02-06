@@ -3,6 +3,7 @@ References/
 doc/_build/html/_sources/
 doc/_build/html/_static/
 local_scripts/
+testdata/*.json
 *.json
 twitterfeatures/twitterusers.pyc
 Approach
@@ -15,4 +16,6 @@ testdata/.~lock.bot_dict_length.csv#
 testdata/.~lock.human_dict_length.csv#
 processed_human_corpus
 processed_bot_corpus
+human_dictionary
+bot_dictionary
 

@@ -148,11 +148,11 @@ class TwitterFeatures(object):
         human_dictionary = Dictionary()
         if os.path.isfile("human_dictionary"):
             #print("Human dictionary exists")
-            pass#human_dictionary.load("human_dictionary")
+            human_dictionary.load("human_dictionary")
         #human_dictionary = corpora.Dictionary(processed_corpus_humans)
         human_dictionary.add_documents(processed_corpus_humans)
         try:
-            pass#human_dictionary.save("human_dictionary")
+            human_dictionary.save("human_dictionary")
         except Exception:
             print("Unable to save human dictionary file")
                 
@@ -210,11 +210,11 @@ class TwitterFeatures(object):
         #bot_dictionary = corpora.Dictionary(processed_corpus_bots)
         if os.path.isfile("bot_dictionary"):
             #print("Bot dictionary exists")
-            pass #bot_dictionary.load("bot_dictionary")
+            bot_dictionary.load("bot_dictionary")
         #human_dictionary = corpora.Dictionary(processed_corpus_humans)
         bot_dictionary.add_documents(processed_corpus_bots)
         try:
-            pass#bot_dictionary.save("bot_dictionary")
+            bot_dictionary.save("bot_dictionary")
         except Exception:
             print("Unable to save bot dictionary file")
         
