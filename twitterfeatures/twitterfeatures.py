@@ -98,10 +98,13 @@ class TwitterFeatures(object):
         humantexts = [[word for word in document.lower().split() if word not in stoplist] 
                  for document in self.raw_human_tweets]
         
+        pre_processed_text = []
+        
         for text in humantexts:
+            result = []
             for token in text:
-                #Remove all references to Twitter accounts
-                if token.startswith('@'):
+                #Remove all references to Twitter accounts and hashtags(?)
+                if token.startswith('@') or token.startswith('#'):
                     text.remove(token)
                     continue
                 #Remove all hyperlinks
@@ -109,10 +112,17 @@ class TwitterFeatures(object):
                 if 'http' in token: #basic check, will remove even regular tokens which have substring 'http'
                     text.remove(token)
                     continue
-                #Remove common trailing characters to reduce number of words in dictionary 
-                #while token.endswith('.') or token.endswith(' ') or token.endswith(',')  or token.endswith(';'):
-                #   token = token[:-1]
-                    
+                #Remove common trailing characters to reduce number of words in dictionary
+                #todo:reduce memory needed
+                while token.endswith('.') or token.endswith(' ') or token.endswith(',')  or \
+                token.endswith(';')  or token.endswith('!')  or token.endswith('?') or token.endswith('+') or token.endswith('-'):
+                    token = token[:-1]
+                #print(token)
+                result.append(token)
+                
+            pre_processed_text.append(result)
+                
+        humantexts = pre_processed_text
         '''.. todo: add stemming '''
         '''for text in texts:
             for token in text:
@@ -154,7 +164,9 @@ class TwitterFeatures(object):
         bottexts = [[word for word in document.lower().split() if word not in stoplist] 
                  for document in self.raw_bot_tweets]
         
+        pre_processed_text = []
         for text in bottexts:
+            result = []
             for token in text:
                 #Remove all references to Twitter accounts
                 if token.startswith('@'):
@@ -164,10 +176,17 @@ class TwitterFeatures(object):
                 if 'http' in token:
                     text.remove(token)
                     continue
-                #Remove common trailing characters to reduce number of words in dictionary 
-                #while token.endswith('.') or token.endswith(' ') or token.endswith(',')  or token.endswith(';'):
-                #   text = text.replace(token, token[:-1])
-                    
+                #Remove common trailing characters to reduce number of words in dictionary
+                #todo:reduce memory needed
+                while token.endswith('.') or token.endswith(' ') or token.endswith(',')  or \
+                token.endswith(';')  or token.endswith('!')  or token.endswith('?') or token.endswith('+') or token.endswith('-'):
+                    token = token[:-1]
+                #print(token)
+                result.append(token)
+                
+            pre_processed_text.append(result)
+            
+        bottexts = pre_processed_text        
         '''for text in texts:
             for token in text:
                 stemmed_token = parsing.stem_text(token)

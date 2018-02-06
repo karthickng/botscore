@@ -2,6 +2,7 @@ __pycache__/
 References/
 doc/_build/html/_sources/
 doc/_build/html/_static/
+local_scripts/
 *.json
 twitterfeatures/twitterusers.pyc
 Approach
