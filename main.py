@@ -10,6 +10,7 @@ from twitterfeatures.twitterfeatures import TwitterFeatures
 from twitterlearn.checkbot import classify_complexity_metric
 from error import UserListCreationError, UserTypeError
 import os
+from tests.dictionary import *
 
 """.. todo:: take from command line or file """
 """.. todo:: delete token after development """
@@ -79,9 +80,10 @@ def test_twitterfeatures(t):
 	return humanbow, botbow
 	
 if __name__ == "__main__":
-		process_cmd(sys.argv)
-		t = test_twitterusers()
-		humanbow, botbow = test_twitterfeatures(t)
-		classify_complexity_metric(humanbow, botbow, t, "@vivekagnihotri")
+	process_cmd(sys.argv)
+	t = test_twitterusers()
+	humanbow, botbow = test_twitterfeatures(t)
+	print_dictionaries()
+	#classify_complexity_metric(humanbow, botbow, t, "@vivekagnihotri")
 
 #end of file

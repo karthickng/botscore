@@ -12,4 +12,6 @@ testdata/bot_dict_length.csv
 testdata/ReadMe
 testdata/.~lock.bot_dict_length.csv#
 testdata/.~lock.human_dict_length.csv#
+processed_human_corpus
+processed_bot_corpus
 

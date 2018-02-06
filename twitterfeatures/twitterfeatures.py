@@ -108,6 +108,10 @@ class TwitterFeatures(object):
                 #todo: use regexp
                 if 'http' in token: #basic check, will remove even regular tokens which have substring 'http'
                     text.remove(token)
+                    continue
+                #Remove common trailing characters to reduce number of words in dictionary 
+                #while token.endswith('.') or token.endswith(' ') or token.endswith(',')  or token.endswith(';'):
+                #   token = token[:-1]
                     
         '''.. todo: add stemming '''
         '''for text in texts:
@@ -127,20 +131,23 @@ class TwitterFeatures(object):
         # Todo: revisit this based on  data
         processed_corpus_humans = [[token for token in text if wordfrequencyhuman[token] > 1] for text in humantexts]
         
-        from gensim import corpora
+        from pprint import pprint
+        f= open('processed_human_corpus',mode='w')
+        pprint(processed_corpus_humans, stream=f)
+        
         human_dictionary = Dictionary()
         if os.path.isfile("human_dictionary"):
             #print("Human dictionary exists")
-            human_dictionary.load("human_dictionary")
+            pass#human_dictionary.load("human_dictionary")
         #human_dictionary = corpora.Dictionary(processed_corpus_humans)
         human_dictionary.add_documents(processed_corpus_humans)
         try:
-            human_dictionary.save("human_dictionary")
+            pass#human_dictionary.save("human_dictionary")
         except Exception:
             print("Unable to save human dictionary file")
                 
         self.human_bow_vectors = [human_dictionary.doc2bow(text) for text in processed_corpus_humans]
-        print("Human dictonary length: " + str(len(human_dictionary.values())))
+        print(human_dictionary)
 
 #process bot tweets
         # Lowercase each document, split it by white space and filter out stopwords
@@ -152,9 +159,15 @@ class TwitterFeatures(object):
                 #Remove all references to Twitter accounts
                 if token.startswith('@'):
                     text.remove(token)
+                    continue
                 #Remove all hyperlinks
                 if 'http' in token:
                     text.remove(token)
+                    continue
+                #Remove common trailing characters to reduce number of words in dictionary 
+                #while token.endswith('.') or token.endswith(' ') or token.endswith(',')  or token.endswith(';'):
+                #   text = text.replace(token, token[:-1])
+                    
         '''for text in texts:
             for token in text:
                 stemmed_token = parsing.stem_text(token)
@@ -171,20 +184,23 @@ class TwitterFeatures(object):
         # Todo: revisit this based on  data
         processed_corpus_bots = [[token for token in text if wordfrequencybot[token] > 1] for text in bottexts]
         
+        f= open('processed_bot_corpus',mode='w')
+        pprint(processed_corpus_bots, stream=f)
+        
         bot_dictionary = Dictionary()
         #bot_dictionary = corpora.Dictionary(processed_corpus_bots)
         if os.path.isfile("bot_dictionary"):
-            print("Bot dictionary exists")
-            bot_dictionary.load("bot_dictionary")
+            #print("Bot dictionary exists")
+            pass #bot_dictionary.load("bot_dictionary")
         #human_dictionary = corpora.Dictionary(processed_corpus_humans)
         bot_dictionary.add_documents(processed_corpus_bots)
         try:
-            bot_dictionary.save("bot_dictionary")
+            pass#bot_dictionary.save("bot_dictionary")
         except Exception:
             print("Unable to save bot dictionary file")
         
         self.bot_bow_vectors = [bot_dictionary.doc2bow(text) for text in processed_corpus_bots]
-        print("Bot dictonary length: " + str(len(bot_dictionary.values())))
+        print(bot_dictionary)
     
 """  todo: use below code when needed   
     
