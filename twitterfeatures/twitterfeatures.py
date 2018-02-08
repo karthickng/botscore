@@ -115,8 +115,17 @@ class TwitterFeatures(object):
                 #Remove common trailing characters to reduce number of words in dictionary
                 #todo:reduce memory needed
                 while token.endswith('.') or token.endswith(' ') or token.endswith(',')  or \
-                token.endswith(';')  or token.endswith('!')  or token.endswith('?') or token.endswith('+') or token.endswith('-'):
+                token.endswith(';')  or token.endswith('!')  or token.endswith('?') or token.endswith('+') or token.endswith('-') or \
+                token.endswith(')') or token.endswith('%')  or token.endswith('&'):
                     token = token[:-1]
+                    
+                #Remove common leading characters to reduce number of words in dictionary
+                #todo:reduce memory needed
+                while token.startswith('.') or token.startswith(' ') or token.startswith(',')  or \
+                token.startswith(';')  or token.startswith('!')  or token.startswith('?') or token.startswith('+') or token.startswith('-') or \
+                token.startswith('(') or token.startswith('$')  or token.startswith('&'):
+                    token = token[1:]
+                    
                 #print(token)
                 result.append(token)
                 
@@ -158,6 +167,8 @@ class TwitterFeatures(object):
                 
         self.human_bow_vectors = [human_dictionary.doc2bow(text) for text in processed_corpus_humans]
         print(human_dictionary)
+        f= open('processed_human_dictionary',mode='w')
+        pprint(human_dictionary.token2id, stream=f)
 
 #process bot tweets
         # Lowercase each document, split it by white space and filter out stopwords
@@ -179,8 +190,17 @@ class TwitterFeatures(object):
                 #Remove common trailing characters to reduce number of words in dictionary
                 #todo:reduce memory needed
                 while token.endswith('.') or token.endswith(' ') or token.endswith(',')  or \
-                token.endswith(';')  or token.endswith('!')  or token.endswith('?') or token.endswith('+') or token.endswith('-'):
+                token.endswith(';')  or token.endswith('!')  or token.endswith('?') or token.endswith('+') or token.endswith('-') or \
+                token.endswith(')') or token.endswith('%')  or token.endswith('&'):
                     token = token[:-1]
+                    
+                #Remove common leading characters to reduce number of words in dictionary
+                #todo:reduce memory needed
+                while token.startswith('.') or token.startswith(' ') or token.startswith(',')  or \
+                token.startswith(';')  or token.startswith('!')  or token.startswith('?') or token.startswith('+') or token.startswith('-') or \
+                token.startswith('(') or token.startswith('$')  or token.startswith('&'):
+                    token = token[1:]
+                    
                 #print(token)
                 result.append(token)
                 
@@ -220,6 +240,8 @@ class TwitterFeatures(object):
         
         self.bot_bow_vectors = [bot_dictionary.doc2bow(text) for text in processed_corpus_bots]
         print(bot_dictionary)
+        f= open('processed_bot_dictionary',mode='w')
+        pprint(bot_dictionary.token2id, stream=f)
     
 """  todo: use below code when needed   
     

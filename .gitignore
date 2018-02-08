@@ -18,4 +18,6 @@ processed_human_corpus
 processed_bot_corpus
 human_dictionary
 bot_dictionary
+processed_bot_dictionary
+processed_human_dictionary
 
