@@ -125,7 +125,9 @@ class TwitterFeatures(object):
                 token.startswith(';')  or token.startswith('!')  or token.startswith('?') or token.startswith('+') or token.startswith('-') or \
                 token.startswith('(') or token.startswith('$')  or token.startswith('&'):
                     token = token[1:]
-                    
+                
+                if token == '':
+                    continue    
                 #print(token)
                 result.append(token)
                 
@@ -169,6 +171,8 @@ class TwitterFeatures(object):
         print(human_dictionary)
         f= open('processed_human_dictionary',mode='w')
         pprint(human_dictionary.token2id, stream=f)
+        f= open('human_vectors',mode='w')
+        pprint(self.human_bow_vectors, stream=f)
 
 #process bot tweets
         # Lowercase each document, split it by white space and filter out stopwords
@@ -200,7 +204,10 @@ class TwitterFeatures(object):
                 token.startswith(';')  or token.startswith('!')  or token.startswith('?') or token.startswith('+') or token.startswith('-') or \
                 token.startswith('(') or token.startswith('$')  or token.startswith('&'):
                     token = token[1:]
-                    
+                
+                if token == '':
+                    continue
+                
                 #print(token)
                 result.append(token)
                 

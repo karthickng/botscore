@@ -83,7 +83,7 @@ if __name__ == "__main__":
 	process_cmd(sys.argv)
 	t = test_twitterusers()
 	humanbow, botbow = test_twitterfeatures(t)
-	print_dictionaries()
+	#print_dictionaries()
 	#classify_complexity_metric(humanbow, botbow, t, "@vivekagnihotri")
 
 #end of file
