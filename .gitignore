@@ -22,3 +22,5 @@ data/human_dict_length.csv
 data/tweetsbyusers.jpeg
 data/vocabulary.jpeg
 data/vocabulary_smaller_list.jpg
+human_vectors
+bot_vectors
