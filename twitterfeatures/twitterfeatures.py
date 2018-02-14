@@ -4,7 +4,7 @@ Twitter features wrapper
 '''
 
 from gensim.corpora.dictionary import Dictionary
-import os
+import os, sys
 from pprint import pprint
 from collections import defaultdict
 
@@ -19,11 +19,10 @@ class TwitterFeatures(object):
         """.. todo:: implement """
         pass
     
-    def extract_features(self, t):
+    def extract_training_set_features(self, t):
         self._get_tweet_list(t) #in self.raw_human_tweets and self.raw_bot_tweets
         humantexts, bottexts = self._preprocess_tweets()
-        self._vectorize_corpus(humantexts, bottexts)
-        return self.human_bow_vectors, self.bot_bow_vectors
+        self._construct_dictionary(humantexts, bottexts)
         
     def _get_tweet_list(self, t):
         """Get tweet list by accounts in human and bot list """
@@ -157,9 +156,9 @@ class TwitterFeatures(object):
             ... todo: stemming '''
         
         return humantexts, bottexts
-        
-    def _vectorize_corpus(self, humantexts, bottexts):
-        #Tokenize the collection of tweets            
+    
+    def _construct_dictionary(self, humantexts, bottexts):
+        # Handle human corpus
         wordfrequencyhuman = defaultdict(int)
         for text in humantexts:
             for token in text:
@@ -168,29 +167,76 @@ class TwitterFeatures(object):
         #Only words used more than once are considered
         # Todo: revisit this based on  data
         processed_corpus_humans = [[token for token in text if wordfrequencyhuman[token] > 1] for text in humantexts]
-        
         f= open('intermediate/processed_human_corpus',mode='w')
         pprint(processed_corpus_humans, stream=f)
         
-        human_dictionary = Dictionary()
+        human_dictionary = Dictionary(processed_corpus_humans)
+        #Quietly overwrite existing dictionary!!!!!!!!!
+        try:
+            os.remove("human_dictionary")
+        except OSError:
+            pass
+
+        try:
+            human_dictionary.save("human_dictionary")
+        except Exception:
+            print("Unable to save human dictionary file")
+            
+        f= open('intermediate/human_dictionary',mode='w')
+        pprint(human_dictionary.token2id, stream=f)
+        
+        # Handle bot corpus
+        wordfrequencybot = defaultdict(int)
+        for text in bottexts:
+            for token in text:
+                wordfrequencybot[token] += 1
+               
+        processed_corpus_bots = [[token for token in text if wordfrequencybot[token] > 1] for text in bottexts]
+        f= open('intermediate/processed_bot_corpus',mode='w')
+        pprint(processed_corpus_bots, stream=f)
+        
+        bot_dictionary = Dictionary(processed_corpus_bots)
+        #Quietly overwrite existing dictionary!!!!!!!!!
+        try:
+            os.remove("bot_dictionary")
+        except OSError:
+            pass
+        
+        try:
+            bot_dictionary.save("bot_dictionary")
+        except Exception:
+            print("Unable to save bot dictionary file")
+        
+        f= open('intermediate/bot_dictionary',mode='w')
+        pprint(bot_dictionary.token2id, stream=f)
+    
+    def _append_dictionary(self, humantexts, bottexts):
+        #TODO- do not use this function. It is incorrect
+        # Handle human corpus
+        wordfrequencyhuman = defaultdict(int)
+        for text in humantexts:
+            for token in text:
+                wordfrequencyhuman[token] += 1
+                
+        #Only words used more than once are considered
+        # Todo: revisit this based on  data
+        processed_corpus_humans = [[token for token in text if wordfrequencyhuman[token] > 1] for text in humantexts]
+        human_dictionary = Dictionary()      
         if os.path.isfile("human_dictionary"):
             #print("Human dictionary exists")
             human_dictionary.load("human_dictionary")
+        else:
+            print("No human dictionary exists")
+            return
+        
         #human_dictionary = corpora.Dictionary(processed_corpus_humans)
         human_dictionary.add_documents(processed_corpus_humans)
         try:
             human_dictionary.save("human_dictionary")
         except Exception:
             print("Unable to save human dictionary file")
-                
-        self.human_bow_vectors = [human_dictionary.doc2bow(text) for text in processed_corpus_humans]
-        print(human_dictionary)
-        f= open('intermediate/processed_human_dictionary',mode='w')
-        pprint(human_dictionary.token2id, stream=f)
-        f= open('intermediate/human_vectors',mode='w')
-        pprint(self.human_bow_vectors, stream=f)
         
-        #Tokenize the collection of tweets            
+        # Handle bot corpus
         wordfrequencybot = defaultdict(int)
         for text in bottexts:
             for token in text:
@@ -199,9 +245,6 @@ class TwitterFeatures(object):
         #Only words used more than once are considered
         # Todo: revisit this based on  data
         processed_corpus_bots = [[token for token in text if wordfrequencybot[token] > 1] for text in bottexts]
-        
-        f= open('intermediate/processed_bot_corpus',mode='w')
-        pprint(processed_corpus_bots, stream=f)
         
         bot_dictionary = Dictionary()
         #bot_dictionary = corpora.Dictionary(processed_corpus_bots)
@@ -214,11 +257,28 @@ class TwitterFeatures(object):
             bot_dictionary.save("bot_dictionary")
         except Exception:
             print("Unable to save bot dictionary file")
+            
+    
+    def _vectorize_corpus(self, humantexts, bottexts):
+        human_dictionary = Dictionary()
+        try:
+            human_dictionary.load("human_dictionary")
+        except Exception:
+            print("Error: No human dictionary exists!!!")
+            sys.exit(1)
+                    
+        self.human_bow_vectors = [human_dictionary.doc2bow(text) for text in humantexts]
+        f= open('intermediate/human_vectors',mode='w')
+        pprint(self.human_bow_vectors, stream=f)
         
-        self.bot_bow_vectors = [bot_dictionary.doc2bow(text) for text in processed_corpus_bots]
-        print(bot_dictionary)
-        f= open('intermediate/processed_bot_dictionary',mode='w')
-        pprint(bot_dictionary.token2id, stream=f)
+        bot_dictionary = Dictionary()
+        try:
+            bot_dictionary.load("bot_dictionary")
+        except Exception:
+            print("Error: No bot dictionary exists!!!")
+            sys.exit(1)
+            
+        self.bot_bow_vectors = [bot_dictionary.doc2bow(text) for text in bottexts]
         f= open('intermediate/bot_vectors',mode='w')
         pprint(self.bot_bow_vectors, stream=f)
  
