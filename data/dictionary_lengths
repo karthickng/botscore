@@ -1,0 +1,38 @@
+# Created by Octave 4.2.0, Mon Jan 15 17:29:45 2018 IST <ngk@ngk-Latitude-3550>
+# name: ans
+# type: scalar
+0
+
+
+# name: bot_dict_length
+# type: matrix
+# rows: 7
+# columns: 2
+ 666 881
+ 2318 2346
+ 4396 3743
+ 7153 5351
+ 11728 8024
+ 13134 8721
+ 18128 10281
+
+
+# name: h
+# type: scalar
+1
+
+
+# name: human_dict_length
+# type: matrix
+# rows: 8
+# columns: 2
+ 283 388
+ 1441 1903
+ 2754 3196
+ 5015 5388
+ 6303 6703
+ 8660 9065
+ 9086 9440
+ 11441 11073
+
+

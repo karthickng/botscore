@@ -1,0 +1,21 @@
+users.json -> Add users here
+human_dict_length.csv -> Human vocabulary count vs #of accounts and #of tweets
+bot_dict_length.csv -> Bot vocabulary count vs #of accounts and #of tweets
+vocabulary.jpeg -> Vocabulary vs #tweets
+vocabulary_smaller_list.jpg -> Vocabulary vs #tweets for smaller user list
+tweetsbyusers.jpeg -> #tweets vs #accounts for a query length of 200 original tweets
+
+Summary:
+# of original tweets (excluding retweets) seems to be more for bots than for humans for query size 200
+Vocabulary of bots is limited compared to humans, as the #of tweets increases. As an indicator of information, this is interesting, and should be followed up
+Bot vocabulary for a certain number of tweets is even lower if we exclude special character only "words" such as "#$%*".
+Bot vocabulary for the same number of users as humans (say 100 each) needs to be checked (TBD).
+
+Initial hypothesis is that complexity (some measure) may be lower for bots than for humans. This can be an indicator to proceed in the classification. How to translate this to a feature needs to be seen.
+
+Next:
+See the dimensional complexity of individual tweets for humans vs bots
+Compare the vocabularies
+Find common vocabulary and separate vocabularies?
+Create TF-IDF representation
+
