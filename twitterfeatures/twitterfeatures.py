@@ -169,7 +169,7 @@ class TwitterFeatures(object):
         # Todo: revisit this based on  data
         processed_corpus_humans = [[token for token in text if wordfrequencyhuman[token] > 1] for text in humantexts]
         
-        f= open('processed_human_corpus',mode='w')
+        f= open('intermediate/processed_human_corpus',mode='w')
         pprint(processed_corpus_humans, stream=f)
         
         human_dictionary = Dictionary()
@@ -185,9 +185,9 @@ class TwitterFeatures(object):
                 
         self.human_bow_vectors = [human_dictionary.doc2bow(text) for text in processed_corpus_humans]
         print(human_dictionary)
-        f= open('processed_human_dictionary',mode='w')
+        f= open('intermediate/processed_human_dictionary',mode='w')
         pprint(human_dictionary.token2id, stream=f)
-        f= open('human_vectors',mode='w')
+        f= open('intermediate/human_vectors',mode='w')
         pprint(self.human_bow_vectors, stream=f)
         
         #Tokenize the collection of tweets            
@@ -200,7 +200,7 @@ class TwitterFeatures(object):
         # Todo: revisit this based on  data
         processed_corpus_bots = [[token for token in text if wordfrequencybot[token] > 1] for text in bottexts]
         
-        f= open('processed_bot_corpus',mode='w')
+        f= open('intermediate/processed_bot_corpus',mode='w')
         pprint(processed_corpus_bots, stream=f)
         
         bot_dictionary = Dictionary()
@@ -217,9 +217,9 @@ class TwitterFeatures(object):
         
         self.bot_bow_vectors = [bot_dictionary.doc2bow(text) for text in processed_corpus_bots]
         print(bot_dictionary)
-        f= open('processed_bot_dictionary',mode='w')
+        f= open('intermediate/processed_bot_dictionary',mode='w')
         pprint(bot_dictionary.token2id, stream=f)
-        f= open('bot_vectors',mode='w')
+        f= open('intermediate/bot_vectors',mode='w')
         pprint(self.bot_bow_vectors, stream=f)
  
  
