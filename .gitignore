@@ -3,7 +3,6 @@ References/
 doc/_build/html/_sources/
 doc/_build/html/_static/
 local_scripts/
-testdata/*.json
 *.json
 twitterfeatures/twitterusers.pyc
 Approach

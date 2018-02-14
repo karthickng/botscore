@@ -249,6 +249,8 @@ class TwitterFeatures(object):
         print(bot_dictionary)
         f= open('processed_bot_dictionary',mode='w')
         pprint(bot_dictionary.token2id, stream=f)
+        f= open('bot_vectors',mode='w')
+        pprint(self.bot_bow_vectors, stream=f)
     
 """  todo: use below code when needed   
     
