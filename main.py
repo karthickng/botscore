@@ -43,33 +43,9 @@ def process_cmd(args):
 
 def test_twitterusers():
 	
-	if (os.path.isfile("merged_user_list.json")):
-		os.remove("merged_user_list.json")
 	t = TwitterUsers(token, token_secret, consumer_key, consumer_secret)
-	try:
-		for username in ["@RUWT","@jamesmtitus"]:
-			t.add_user(username, 'bot')
-		for username in ["@iasura_","@dww_k", "@ShefVaidya"]:
-			t.add_user(username) # default type='human'
-		#print("Test User list programmed:\n" + str(t.get_user_list()) + "\n")
-	except UserListCreationError:
-		print('User list creation error')
-	except UserTypeError:
-		print('User type error in input\n')
-	except:
-		print("Unexpected error")
-		raise
-	
-	t.read_user_list_json("testdata/users.json")
+	t.read_user_list_json("data/userlist_train.json")
 	#print("Test User list JSON:\n" + str(t.get_user_list()) + "\n")
-	
-	t.add_user("@new_user", "bot")
-	#print("User list with new addition:\n" + str(t.get_user_list()) + "\n")
-	
-	t.append_user_list_json("testdata/more_users.json")
-	#print("User list with appended list:\n" + str(t.get_user_list()) + "\n")
-	
-	t.write_user_list_json("merged_user_list.json")
 	
 	return t
 	

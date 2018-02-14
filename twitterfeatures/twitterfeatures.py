@@ -3,10 +3,10 @@ Twitter features wrapper
 ------------------------
 '''
 
-from twitterfeatures.twitterusers import TwitterUsers
-from twitter import Twitter
 from gensim.corpora.dictionary import Dictionary
 import os
+from pprint import pprint
+from collections import defaultdict
 
 class TwitterFeatures(object):
     '''
@@ -19,41 +19,10 @@ class TwitterFeatures(object):
         """.. todo:: implement """
         pass
     
-    def add_master_feature(self, description_, calc_function):
-        """.. todo:: implement """
-        pass
-    
-    def remove_master_feature(self, feature_id):
-        """.. todo:: implement """
-        pass
-    
-    def get_master_features_list(self):
-        """.. todo:: implement """
-        pass
-    
-    def select_feature(self, feature_id_list=['all']):
-        """.. todo:: implement """
-        pass
-    
-    def get_selected_features(self):
-        """.. todo:: implement """
-        pass
-    
-    def remove_feature(self, feature_id):
-        """.. todo:: implement """
-        pass
-    
-    def get_feature_description(self, feature_id):
-        """.. todo:: implement """
-        pass
-    
-    def get_all_features_description(self):
-        """.. todo:: implement """
-        pass
-    
     def extract_features(self, t):
         self._get_tweet_list(t) #in self.raw_human_tweets and self.raw_bot_tweets
-        self._preprocess_tweets()
+        humantexts, bottexts = self._preprocess_tweets()
+        self._vectorize_corpus(humantexts, bottexts)
         return self.human_bow_vectors, self.bot_bow_vectors
         
     def _get_tweet_list(self, t):
@@ -140,39 +109,6 @@ class TwitterFeatures(object):
                 stemmed_token = parsing.stem_text(token)
                 #print(stemmed_token)
             ... todo: stemming '''
-        
-        #Tokenize the collection of tweets            
-        from collections import defaultdict
-        wordfrequencyhuman = defaultdict(int)
-        for text in humantexts:
-            for token in text:
-                wordfrequencyhuman[token] += 1
-                
-        #Only words used more than once are considered
-        # Todo: revisit this based on  data
-        processed_corpus_humans = [[token for token in text if wordfrequencyhuman[token] > 1] for text in humantexts]
-        
-        from pprint import pprint
-        f= open('processed_human_corpus',mode='w')
-        pprint(processed_corpus_humans, stream=f)
-        
-        human_dictionary = Dictionary()
-        if os.path.isfile("human_dictionary"):
-            #print("Human dictionary exists")
-            human_dictionary.load("human_dictionary")
-        #human_dictionary = corpora.Dictionary(processed_corpus_humans)
-        human_dictionary.add_documents(processed_corpus_humans)
-        try:
-            human_dictionary.save("human_dictionary")
-        except Exception:
-            print("Unable to save human dictionary file")
-                
-        self.human_bow_vectors = [human_dictionary.doc2bow(text) for text in processed_corpus_humans]
-        print(human_dictionary)
-        f= open('processed_human_dictionary',mode='w')
-        pprint(human_dictionary.token2id, stream=f)
-        f= open('human_vectors',mode='w')
-        pprint(self.human_bow_vectors, stream=f)
 
 #process bot tweets
         # Lowercase each document, split it by white space and filter out stopwords
@@ -220,6 +156,40 @@ class TwitterFeatures(object):
                 #print(stemmed_token)
             ... todo: stemming '''
         
+        return humantexts, bottexts
+        
+    def _vectorize_corpus(self, humantexts, bottexts):
+        #Tokenize the collection of tweets            
+        wordfrequencyhuman = defaultdict(int)
+        for text in humantexts:
+            for token in text:
+                wordfrequencyhuman[token] += 1
+                
+        #Only words used more than once are considered
+        # Todo: revisit this based on  data
+        processed_corpus_humans = [[token for token in text if wordfrequencyhuman[token] > 1] for text in humantexts]
+        
+        f= open('processed_human_corpus',mode='w')
+        pprint(processed_corpus_humans, stream=f)
+        
+        human_dictionary = Dictionary()
+        if os.path.isfile("human_dictionary"):
+            #print("Human dictionary exists")
+            human_dictionary.load("human_dictionary")
+        #human_dictionary = corpora.Dictionary(processed_corpus_humans)
+        human_dictionary.add_documents(processed_corpus_humans)
+        try:
+            human_dictionary.save("human_dictionary")
+        except Exception:
+            print("Unable to save human dictionary file")
+                
+        self.human_bow_vectors = [human_dictionary.doc2bow(text) for text in processed_corpus_humans]
+        print(human_dictionary)
+        f= open('processed_human_dictionary',mode='w')
+        pprint(human_dictionary.token2id, stream=f)
+        f= open('human_vectors',mode='w')
+        pprint(self.human_bow_vectors, stream=f)
+        
         #Tokenize the collection of tweets            
         wordfrequencybot = defaultdict(int)
         for text in bottexts:
@@ -251,8 +221,14 @@ class TwitterFeatures(object):
         pprint(bot_dictionary.token2id, stream=f)
         f= open('bot_vectors',mode='w')
         pprint(self.bot_bow_vectors, stream=f)
-    
-"""  todo: use below code when needed   
+ 
+ 
+ 
+ 
+ 
+ 
+""" ---------------------------------------------------------------------------------------   
+    todo: use below code when needed   
     
     previnstant = currinstant = datetime.datetime.strptime("2017-12-13 18:34:00 +0000",'%Y-%m-%d %H:%M:%S +0000')
         if len(params) > 3:
