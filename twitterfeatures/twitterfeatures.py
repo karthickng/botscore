@@ -170,21 +170,9 @@ class TwitterFeatures(object):
         f= open('intermediate/processed_human_corpus',mode='w')
         pprint(processed_corpus_humans, stream=f)
         
-        human_dictionary = Dictionary(processed_corpus_humans)
-        #Quietly overwrite existing dictionary!!!!!!!!!
-        try:
-            os.remove("human_dictionary")
-        except OSError:
-            pass
+        my_dictionary = Dictionary()
+        my_dictionary.add_documents(processed_corpus_humans)
 
-        try:
-            human_dictionary.save("human_dictionary")
-        except Exception:
-            print("Unable to save human dictionary file")
-            
-        f= open('intermediate/human_dictionary',mode='w')
-        pprint(human_dictionary.token2id, stream=f)
-        
         # Handle bot corpus
         wordfrequencybot = defaultdict(int)
         for text in bottexts:
@@ -195,20 +183,16 @@ class TwitterFeatures(object):
         f= open('intermediate/processed_bot_corpus',mode='w')
         pprint(processed_corpus_bots, stream=f)
         
-        bot_dictionary = Dictionary(processed_corpus_bots)
-        #Quietly overwrite existing dictionary!!!!!!!!!
+        my_dictionary.add_documents(processed_corpus_bots)
+
         try:
-            os.remove("bot_dictionary")
-        except OSError:
-            pass
-        
-        try:
-            bot_dictionary.save("bot_dictionary")
+            my_dictionary.save("dictionary")
         except Exception:
             print("Unable to save bot dictionary file")
         
-        f= open('intermediate/bot_dictionary',mode='w')
-        pprint(bot_dictionary.token2id, stream=f)
+        f= open('intermediate/dictionary.txt',mode='w')
+        pprint(my_dictionary.token2id, stream=f)
+    
     
     def _append_dictionary(self, humantexts, bottexts):
         #TODO- do not use this function. It is incorrect
@@ -260,29 +244,25 @@ class TwitterFeatures(object):
             
     
     def _vectorize_corpus(self, humantexts, bottexts):
-        human_dictionary = Dictionary()
+        my_dictionary = Dictionary()
         try:
-            human_dictionary.load("human_dictionary")
+            my_dictionary.load("dictionary")
         except Exception:
-            print("Error: No human dictionary exists!!!")
+            print("Error: No dictionary exists!!!")
             sys.exit(1)
                     
-        self.human_bow_vectors = [human_dictionary.doc2bow(text) for text in humantexts]
+        self.human_bow_vectors = [my_dictionary.doc2bow(text) for text in humantexts]
         f= open('intermediate/human_vectors',mode='w')
         pprint(self.human_bow_vectors, stream=f)
         
-        bot_dictionary = Dictionary()
-        try:
-            bot_dictionary.load("bot_dictionary")
-        except Exception:
-            print("Error: No bot dictionary exists!!!")
-            sys.exit(1)
-            
-        self.bot_bow_vectors = [bot_dictionary.doc2bow(text) for text in bottexts]
+        self.bot_bow_vectors = [my_dictionary.doc2bow(text) for text in bottexts]
         f= open('intermediate/bot_vectors',mode='w')
         pprint(self.bot_bow_vectors, stream=f)
  
  
+if __name__ == "__main__":
+    #How to use directly?
+    pass
  
  
  
