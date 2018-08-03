@@ -1,9 +1,7 @@
 .. BotScore documentation file, created by Karthick N G
 
-Main module
+Error module
 ------------
 
-.. automodule:: main
+.. automodule:: error
    :members:
-   :undoc-members:
-   :private-members:
